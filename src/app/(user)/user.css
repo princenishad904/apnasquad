@@ -1,0 +1,94 @@
+ body {
+          background-color: #111827;
+          color: #e5e7eb;
+          font-family: 'Inter', sans-serif;
+          margin: 0;
+          padding: 0;
+          overflow-x: hidden;
+        }
+        
+        .bg-grid-pattern {
+          background-image: 
+            linear-gradient(to right, rgba(74, 222, 128, 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(74, 222, 128, 0.1) 1px, transparent 1px);
+          background-size: 20px 20px;
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+          width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+          background: rgba(74, 222, 128, 0.3);
+          border-radius: 3px;
+        }
+ .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+
+  .loader {
+ 
+    border: 5px solid #FFF;
+    border-bottom-color: #FF3D00;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+   @keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Chrome, Safari, Edge, Opera ke liye */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox ke liye */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+
+
+  @keyframes aurora {
+          0% {
+            background-position: 0% 0%;
+          }
+          100% {
+            background-position: 100% 100%;
+          }
+        }
+        @keyframes aurora-delay {
+          0% {
+            background-position: 100% 100%;
+          }
+          100% {
+            background-position: 0% 0%;
+          }
+        }
+        .animate-aurora {
+          background-size: 200% 200%;
+          animation: aurora 10s ease-in-out infinite alternate;
+        }
+        .animate-aurora-delay {
+          background-size: 200% 200%;
+          animation: aurora-delay 12s ease-in-out infinite alternate;
+        }
