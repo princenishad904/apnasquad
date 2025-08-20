@@ -38,7 +38,7 @@ const MyTournaments = () => {
     if (inView && !isLoading && data?.data?.pagination?.hasNextPage) {
       setPage((prevPage) => prevPage + 1);
     }
-  }, [inView, isLoading]);
+  }, [inView, isLoading, data?.data?.pagination?.hasNextPage]);
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">

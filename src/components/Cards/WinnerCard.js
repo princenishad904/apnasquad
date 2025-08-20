@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 // --- ICONS ---
@@ -96,10 +97,12 @@ export default function WinnerCard() {
           {/* Left Side: Image */}
           <div className="md:w-5/12 bg-black/20 p-6 flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r border-white/10">
             <div className="relative">
-              <img
+              <Image
                 src={winnerData.imageUrl}
                 alt={winnerData.name}
-                className="w-32 h-32 rounded-full border-4 border-cyan-400 shadow-lg"
+                width={120}
+                height={120}
+                className="rounded-full border-4 border-cyan-400 shadow-lg"
               />
               <div className="absolute inset-0 rounded-full border-4 border-cyan-400 blur-md animate-pulse"></div>
             </div>

@@ -88,7 +88,7 @@ const Users = () => {
 
   useEffect(() => {
     trigger(query);
-  }, [trigger]);
+  }, [trigger, query]);
 
   const users = data?.data?.users || [];
   const { currentPage, totalPages, limit } = data?.data || {};
