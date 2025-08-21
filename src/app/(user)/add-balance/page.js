@@ -75,7 +75,7 @@ export default function AddBalance() {
   return (
     <div className="min-h-[80vh] flex items-center justify-center p-4 font-sans">
       <div className="max-w-md w-full bg-slate-900/10  rounded-3xl p-4  transform ">
-        <h2 className="text-3xl font-bold text-emerald-400 mb-4 tracking-wider text-center">
+        <h2 className="text-3xl font-bold text-indigo-400 mb-4 tracking-wider text-center">
           Add balance
         </h2>
 
@@ -97,7 +97,7 @@ export default function AddBalance() {
               min="10"
               value={amount}
               onChange={(e) => setAmount(Number(e.target.value))}
-              className="w-full bg-slate-800 border-2 border-emerald-500 rounded-lg px-4 py-3 text-white text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-colors duration-200"
+              className="w-full bg-slate-800 border-2 border-indigo-500 rounded-lg px-4 py-3 text-white text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-colors duration-200"
               placeholder="e.g., 500"
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 font-bold">
@@ -114,7 +114,7 @@ export default function AddBalance() {
               className={`px-6 py-3 rounded-full text-base font-medium transition-all duration-200 border-2 
                 ${
                   amount === a
-                    ? "bg-emerald-500 text-black border-emerald-500 shadow-lg shadow-emerald-500/30"
+                    ? "bg-indigo-500 text-black border-indigo-500 shadow-lg shadow-emerald-500/30"
                     : "bg-slate-800 text-white border-slate-700 hover:bg-slate-700"
                 }`}
             >
@@ -132,7 +132,7 @@ export default function AddBalance() {
         <button
           onClick={createOrderAndPay}
           disabled={loading}
-          className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 font-bold text-black text-lg uppercase tracking-wider shadow-lg shadow-emerald-500/40 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:shadow-none disabled:transform-none"
+          className="w-full py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-400 font-bold text-black text-lg uppercase tracking-wider shadow-lg shadow-indigo-500/40 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:shadow-none disabled:transform-none"
         >
           {loading ? "Opening payment gateway..." : `Add ₹${amount}`}
         </button>

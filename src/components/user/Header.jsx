@@ -11,7 +11,12 @@ const Header = () => {
       <div className="container mx-auto px-4  flex items-center justify-between">
         {/* App Name/Logo - Left Side */}
         <div className="flex items-center space-x-2">
-          <Image src={"/logo.svg"} alt="logo" height={72} width={72} />
+          <Image
+            src={"https://i.postimg.cc/02q763xt/app-logo.webp"}
+            alt="logo"
+            height={48}
+            width={48}
+          />
         </div>
 
         {/* Balance - Right Side */}
@@ -22,9 +27,7 @@ const Header = () => {
           </div>
 
           {/* User Profile (optional) */}
-          <Button variant={"outline"} className={"cursor-pointer"}>
-            How to play ?
-          </Button>
+          {/* <Button variant={"outline"} className={"cursor-pointer"}></Button> */}
         </div>
       </div>
     </header>

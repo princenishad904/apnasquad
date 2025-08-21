@@ -183,45 +183,37 @@ const SignUp = () => {
         </Card>
       ) : steps === 2 ? (
         // OTP verification form card
-        <Card className="z-10 w-full max-w-sm mx-auto p-6 bg-white/5 border-none backdrop-blur-sm rounded-3xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:shadow-[0_4px_50px_rgba(0,0,0,0.2)]">
+        <Card className="z-10 w-full max-w-sm mx-auto p-6 bg-transparent border-none backdrop-blur-sm rounded-3xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:shadow-[0_4px_50px_rgba(0,0,0,0.2)]">
           <CardHeader className="text-center p-0 mb-8">
             <CardTitle className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">
               VERIFY OTP
             </CardTitle>
             <CardDescription className="text-sm text-gray-400 mt-2">
-              We have sent a 6-digit code to your email.
+              We have sent a 6-digit code to your {email}.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col items-center p-0">
             <InputOTP
-              maxLength={6}
+              maxLength={4}
               onChange={(value) => setOtp(value)}
               value={otp}
             >
               <InputOTPSlot
                 index={0}
-                className="rounded-lg bg-white/10 text-white border-white/20"
+                className="rounded-lg bg-white/10 text-white border-white/20 size-12 text-2xl"
               />
               <InputOTPSlot
                 index={1}
-                className="rounded-lg bg-white/10 text-white border-white/20"
+                className="rounded-lg bg-white/10 text-white border-white/20 size-12 text-2xl"
               />
               <InputOTPSlot
                 index={2}
-                className="rounded-lg bg-white/10 text-white border-white/20"
+                className="rounded-lg bg-white/10 text-white border-white/20 size-12 text-2xl"
               />
 
               <InputOTPSlot
                 index={3}
-                className="rounded-lg bg-white/10 text-white border-white/20"
-              />
-              <InputOTPSlot
-                index={4}
-                className="rounded-lg bg-white/10 text-white border-white/20"
-              />
-              <InputOTPSlot
-                index={5}
-                className="rounded-lg bg-white/10 text-white border-white/20"
+                className="rounded-lg bg-white/10 text-white border-white/20 size-12 text-2xl"
               />
             </InputOTP>
           </CardContent>
@@ -229,7 +221,7 @@ const SignUp = () => {
             <Button
               type="submit"
               onClick={handleVerification}
-              disabled={otp.length !== 6 || isVerifing}
+              disabled={otp.length !== 4 || isVerifing}
               className="w-full mt-4 h-11 text-lg font-bold rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
             >
               {isVerifing ? (

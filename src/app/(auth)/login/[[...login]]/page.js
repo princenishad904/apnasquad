@@ -50,14 +50,14 @@ const Login = () => {
 
   return (
     // Main container with dark background and aurora effect
-    <div className="relative flex items-center justify-center w-full min-h-screen overflow-hidden bg-[#0A0426] font-sans text-white">
+    <div className="relative flex items-center justify-center w-full min-h-screen overflow-hidden bg-[#0a042600] font-sans text-white">
       {/* Aurora effect using a div with radial gradient and animation */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#03c259] via-transparent to-[#75023b] opacity-30 animate-pulse-slow"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-[#470260] via-transparent to-[#000000] opacity-30 animate-pulse-slow"></div>
 
       {/* Main card container with translucent background */}
-      <Card className="z-10 w-full max-w-sm mx-auto p-6 bg-white/5 border-none backdrop-blur-sm rounded-3xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:shadow-[0_4px_50px_rgba(0,0,0,0.2)]">
+      <Card className="z-10 w-full max-w-sm mx-auto p-6  bg-transparent border-none backdrop-blur-sm  transition-all duration-300 hover:shadow-[0_4px_50px_rgba(0,0,0,0.2)]">
         <CardHeader className="text-center p-0 mb-8">
-          <CardTitle className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">
+          <CardTitle className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
             LOGIN
           </CardTitle>
           <CardDescription className="text-sm text-gray-400 mt-2">
@@ -104,6 +104,7 @@ const Login = () => {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   name="password"
+                  placeholder="Enter your password"
                   required
                   className="w-full bg-white/10 text-white placeholder-gray-500 border border-white/20 focus:border-purple-500 rounded-lg pr-10"
                 />

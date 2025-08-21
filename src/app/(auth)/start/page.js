@@ -13,7 +13,8 @@ import Link from "next/link";
 
 const App = () => {
   // Use the Dream11-style image for the background
-  const imageUrl = "https://i.postimg.cc/8Pt6zxCD/upscalemedia-transformed.jpg";
+  const imageUrl =
+    "https://i.postimg.cc/x8x74Xw6/file-000000004124622fbc66b758bad17549.png";
 
   // Handlers for the buttons. These are placeholders for now.
   const handleLoginClick = () => {
@@ -30,13 +31,13 @@ const App = () => {
     <div className="relative h-screen max-w-md mx-auto">
       <div className="absolute top-0 left-0 w-full h-screen">
         <Image
-          src="https://i.postimg.cc/8Pt6zxCD/upscalemedia-transformed.jpg"
+          src="https://i.postimg.cc/SNq8RZz7/20250821-161941.webp"
           alt="iamge"
           fill
         />
       </div>
 
-      <div className="w-full absolute top-0 left-0 z-40 bg-transparent h-screen flex flex-col justify-between py-8">
+      <div className="w-full  absolute top-0 left-0 z-40 bg-transparent h-screen flex flex-col justify-between py-8">
         <div className=" p-4 text-center  text-white mt-4">
           <h1 className="text-4xl font-extrabold leading-tight tracking-wide uppercase">
             Apna <span className="text-red-500">Squad</span>{" "}

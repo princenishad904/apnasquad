@@ -34,19 +34,31 @@ const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["User"],
     }),
 
+    // authRoutes.route("/request-otp").post(sendResetPasswordOtp);
+    // authRoutes.route("/verify-otp-for-reset-password").post(verifyResetPasswordOtp);
+    // authRoutes.route("/verify-otp-for-reset-password").patch(resetPassword);
+
     sendOtpForResetPassword: builder.mutation({
-      query: (identifier) => ({
-        url: "/auth/send-otp",
+      query: (email) => ({
+        url: "/auth/request-otp",
         method: "POST",
-        body: { identifier },
+        body: { email },
+      }),
+    }),
+
+    verifyOtpForResetPassword: builder.mutation({
+      query: (data) => ({
+        url: "/auth/verify-otp-for-reset-password",
+        method: "POST",
+        body: data,
       }),
     }),
 
     resetPassword: builder.mutation({
-      query: ({ identifier, password }) => ({
+      query: (data) => ({
         url: "/auth/reset-password",
         method: "POST",
-        body: { identifier, password },
+        body: data,
       }),
     }),
   }),
@@ -57,7 +69,9 @@ export const {
   useSignUpMutation,
   useLoginMutation,
   useLogoutMutation,
-  useSendOtpForResetPasswordMutation,
   useVerifyOtpMutation,
+
+  useSendOtpForResetPasswordMutation,
+  useVerifyOtpForResetPasswordMutation,
   useResetPasswordMutation,
 } = authApi;

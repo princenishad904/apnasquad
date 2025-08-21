@@ -72,7 +72,7 @@ const Page = () => {
   };
 
   return (
-    <div>
+    <div className="px-4">
       <MatchCategories
         onSelectMap={handleMapSelect}
         onSelectMode={handleModSelect}

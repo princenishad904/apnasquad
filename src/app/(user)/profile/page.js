@@ -15,8 +15,8 @@ import { useGetLoggedInUserQuery } from "@/redux/user/userApi";
 import ProfileLoader from "@/components/user/ProfileLoader";
 import Link from "next/link";
 import WithdrawDrawer from "@/components/user/WithdrawDrawer";
-// Modern icons ke liye. Aap inko SVG ke roop mein use kar sakte hain.
-// In a real project: npm install lucide-react
+
+// Modern icons
 const Crown = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -54,44 +54,6 @@ const Swords = (props) => (
   </svg>
 );
 
-const Target = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="12" cy="12" r="10" />
-    <circle cx="12" cy="12" r="6" />
-    <circle cx="12" cy="12" r="2" />
-  </svg>
-);
-
-const BarChart = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <line x1="12" y1="20" x2="12" y2="10" />
-    <line x1="18" y1="20" x2="18" y2="4" />
-    <line x1="6" y1="20" x2="6" y2="16" />
-  </svg>
-);
-
 const Wallet = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -111,67 +73,47 @@ const Wallet = (props) => (
   </svg>
 );
 
-// Dummy data for the profile
-const userProfile = {
-  username: "ProGamer123",
-  avatarUrl: "https://placehold.co/100x100/1a202c/4a5568?text=P",
-  level: 52,
-  xp: 75, // Percentage
-  walletBalance: 1250,
-  stats: {
-    totalWins: 112,
-    kdRatio: 3.45,
-    totalKills: 2480,
-    winRate: 18.5,
-  },
-  recentMatches: [
-    {
-      id: 1,
-      map: "Erangel",
-      type: "Squad",
-      position: 2,
-      total: 25,
-      kills: 8,
-      result: 100,
-    },
-    {
-      id: 2,
-      map: "Miramar",
-      type: "Duo",
-      position: 1,
-      total: 50,
-      kills: 12,
-      result: 250,
-    },
-    {
-      id: 3,
-      map: "Erangel",
-      type: "Squad",
-      position: 10,
-      total: 25,
-      kills: 3,
-      result: -25,
-    },
-    {
-      id: 4,
-      map: "Sanhok",
-      type: "Solo",
-      position: 5,
-      total: 100,
-      kills: 6,
-      result: 50,
-    },
-    {
-      id: 5,
-      map: "Sanhok",
-      type: "Solo",
-      position: 5,
-      total: 100,
-      kills: 6,
-      result: 50,
-    },
-  ],
-};
+const Trophy = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+    <path d="M4 22h16" />
+    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+  </svg>
+);
+
+const Users = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+);
 
 // Main Profile Component
 export default function Profile() {
@@ -183,7 +125,7 @@ export default function Profile() {
     const { data, error } = await logout();
     if (error) return toast.error(error?.data?.message);
     if (data?.success) {
-      toast.success("logout successfull");
+      toast.success("Logout successful");
       router.push("/login");
     }
   };
@@ -193,137 +135,159 @@ export default function Profile() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-transparent font-sans text-white p-4 relative overflow-hidden">
-      {user?.data?.role === "admin" ? (
-        <Link href={"/admin"}>
-          {" "}
-          <Button
-            variant={"outline"}
-            className={
-              "dark cursor-pointer bg-gradient-to-br from-black/10 to-slate-700 hover:bg-black/20 w-full mb-1"
-            }
-          >
-            Admin
-          </Button>
-        </Link>
-      ) : (
-        ""
-      )}
+    <div className="w-full min-h-screen bg-transparent font-sans text-white relative overflow-hidden px-4 py-6">
+      {/* Animated background elements */}
+      <div className="absolute top-0 left-0 w-full h-72 bg-gradient-to-b from-blue-900/20 to-transparent -z-10"></div>
+      <div className="absolute -top-24 -left-24 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl -z-10"></div>
+      <div className="absolute top-1/2 -right-24 w-72 h-72 bg-cyan-600/10 rounded-full blur-3xl -z-10"></div>
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl -z-10"></div>
 
-      <div className="w-full mx-auto z-10 relative">
+      {/* Floating particles */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${15 + Math.random() * 10}s`,
+            }}
+          ></div>
+        ))}
+      </div>
+
+      <div className="max-w-md mx-auto z-10 relative">
+        {/* Admin Link Button */}
+        {user?.data?.role === "admin" && (
+          <Link href={"/admin"} className="block mb-4">
+            <div className="w-full bg-gradient-to-r from-purple-700 to-blue-700 p-0.5 rounded-xl">
+              <div className="bg-gray-900 rounded-xl p-3 text-center font-bold text-white hover:bg-gray-800 transition-colors cursor-pointer">
+                Admin Dashboard
+              </div>
+            </div>
+          </Link>
+        )}
+
         {/* Profile Header Card */}
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 flex  gap-4 mb-4 shadow-2xl shadow-black/20 items-center">
-          <Avatar className={"size-20 ring-4 ring-gray-300"}>
-            <AvatarImage
-              className={"object-cover"}
-              src={user?.data?.avatar || "https://github.com/shadcn.png"}
-            />
-            <AvatarFallback>
-              {user?.data?.name?.charAt(0) || "U"}
-            </AvatarFallback>
-          </Avatar>
+        <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl p-6 flex flex-col items-center justify-center gap-4 mb-6 shadow-2xl overflow-hidden">
+          {/* Light effect behind avatar */}
+          <div className="absolute -top-10 -left-10 w-32 h-32 bg-blue-500/20 rounded-full blur-xl"></div>
 
-          <div className="flex-1  text-left">
-            <h2 className="text-xl font-bold tracking-tight">
+          <div className="relative">
+            <Avatar className="size-24 ring-4 ring-blue-500/30 transition-transform duration-300 hover:scale-105 z-10">
+              <AvatarImage
+                className="object-cover"
+                src={user?.data?.avatar || "https://github.com/shadcn.png"}
+              />
+              <AvatarFallback className="bg-blue-700 text-white">
+                {user?.data?.name?.charAt(0) || "U"}
+              </AvatarFallback>
+            </Avatar>
+            {/* Online status indicator */}
+            <div className="absolute bottom-2 right-2 w-4 h-4 bg-green-500 rounded-full ring-2 ring-gray-900"></div>
+          </div>
+
+          <div className="flex-1 text-center">
+            <h2 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
               {user?.data?.name}
             </h2>
-
-            <p className="text-gray-400">
-              Email: {user?.data?.email || "Edit profile"}
+            <p className="text-gray-400 text-sm mt-1">
+              {user?.data?.email || "Email not set"}
             </p>
-            {user?.data?.bgmiId ? (
-              <p className="text-gray-400 text-sm">
-                BGMI ID: {user?.data?.bgmiId || "Edit profile"}
+            {user?.data?.bgmiId && (
+              <p className="text-gray-400 text-sm mt-1">
+                BGMI ID: {user?.data?.bgmiId}
               </p>
-            ) : (
-              ""
             )}
           </div>
         </div>
 
-        <div className="flex items-center justify-between mb-2">
-          <p className=" text-gray-400 font-semibold text-sm ">
-            My Referral code :{" "}
-            <span className="text-gray-300">{user?.data?.referralCode}</span>
-          </p>
+        {/* Wallet Section */}
+        <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl p-5 mb-6 relative overflow-hidden">
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl"></div>
 
-          {user?.data?.bgmiId ? (
-            <p className="text-gray-400 text-sm ">
-              Phone : {user?.data?.phone}
-            </p>
-          ) : (
-            ""
-          )}
-        </div>
+          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Wallet className="w-5 h-5 text-blue-400" />
+            Wallet Balance
+          </h3>
 
-        {/* create team and update profile button */}
-        <div className="w-full grid grid-cols-2 gap-4 mb-4">
-          <CreateTeam user={user?.data} />
+          <div className="flex justify-between items-center mb-4">
+            <div>
+              <p className="text-2xl font-bold text-blue-300">
+                ₹{user?.data?.balance.toLocaleString()}
+              </p>
+              <p className="text-sm text-gray-400">Main Balance</p>
+            </div>
 
-          <EditProfileDailog />
-        </div>
-
-        <div className="bg-white/10 p-4 rounded-xl flex justify-between mb-4 items-center  flex-row-reverse">
-          <WithdrawDrawer user={user?.data} />
-
-          <div>
-            <p className="text-sm text-gray-400">Wallet Balance</p>
-            <p className="text-2xl font-bold">
-              ₹{user?.data?.balance.toLocaleString()}
-            </p>
+            <div className="text-right">
+              <p className="text-xl font-bold text-purple-300">
+                ₹{user?.data?.bonus.toLocaleString()}
+              </p>
+              <p className="text-sm text-gray-400">Bonus</p>
+            </div>
           </div>
-        </div>
-        <div className="bg-white/10 p-4 rounded-xl flex justify-between mb-4 items-center  flex-row-reverse">
-          <Button
-            className={"bg-black/10 border border-gray-500 cursor-pointer"}
-          >
-            Invite Friends
-          </Button>
-          <div>
-            <p className="text-sm text-gray-400">Bonus Balance</p>
-            <p className="text-2xl font-bold">
-              ₹{user?.data?.bonus.toLocaleString()}
-            </p>
-          </div>
-        </div>
 
-        {/* Stats Grid */}
-        <div className="mb-8">
-          <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
-            <StatCard
-              icon={<Crown className="text-yellow-400" />}
-              label="Transaction History"
-              value={userProfile.stats.totalWins}
-            />
+          <div className="grid grid-cols-2 gap-3">
+            <WithdrawDrawer user={user?.data} />
             <Link href={"/add-balance"}>
-              <StatCard
-                icon={<Swords className="text-red-400" />}
-                label="Add Balance"
-                value={userProfile.stats.totalKills.toLocaleString()}
-              />
+              <div className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white text-center py-2 text-sm px-4 rounded-lg transition-all cursor-pointer">
+                Add Cash
+              </div>
             </Link>
           </div>
         </div>
 
-        <footer className="mt-4 flex-col justify-center gap-4">
-          <button
-            onClick={handleLogout}
-            className="w-full bg-white/10 border border-white/20 text-white font-bold py-3 px-8 rounded-lg hover:bg-white/20 transform transition-colors duration-300"
-          >
-            {isLoading ? <Loader /> : "Logout"}
-          </button>
-        </footer>
+        {/* Referral Section */}
+        <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl p-5 mb-6 relative overflow-hidden">
+          <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-purple-500/10 rounded-full blur-2xl"></div>
+
+          <h3 className="text-lg font-semibold mb-3">Referral Code</h3>
+
+          <div className="bg-gray-800/50 p-3 rounded-lg mb-4 flex justify-between items-center">
+            <p className="text-lg font-mono">{user?.data?.referralCode}</p>
+          </div>
+
+          <Link href={`/invite?referralCode=${user?.data?.referralCode}`}>
+            <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white py-2.5 rounded-lg transition-all">
+              Invite Friends
+            </button>
+          </Link>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl p-5 mb-6">
+          <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+
+          <div className="grid grid-cols-2 gap-3">
+            <CreateTeam user={user?.data} />
+            <EditProfileDailog />
+
+            <Link href={"/transactions"}>
+              <div className="bg-gray-800/50 hover:bg-gray-700/50 border border-gray-700 rounded-lg p-3 text-center transition-all cursor-pointer">
+                <Wallet className="w-6 h-6 text-green-400 mx-auto mb-1" />
+                <p className="text-sm">Transactions</p>
+              </div>
+            </Link>
+
+            <Link href={"/my-matches"}>
+              <div className="bg-gray-800/50 hover:bg-gray-700/50 border border-gray-700 rounded-lg p-3 text-center transition-all cursor-pointer">
+                <Swords className="w-6 h-6 text-red-400 mx-auto mb-1" />
+                <p className="text-sm">My Matches</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        {/* Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="w-full bg-gradient-to-r from-red-700 to-red-800 hover:from-red-600 hover:to-red-700 text-white font-medium py-3 px-8 rounded-xl transition-all"
+        >
+          {isLoading ? <Loader /> : "Logout"}
+        </button>
       </div>
     </div>
   );
 }
-
-// Reusable component for each stat card
-const StatCard = ({ icon, label, value }) => (
-  <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 text-center transform transition-all duration-300 hover:bg-white/10 hover:-translate-y-1 cursor-pointer">
-    <div className="w-12 h-auto mx-auto mb-3 flex items-center justify-center bg-gray-800/50 rounded-full">
-      {icon}
-    </div>
-    <p className="text-gray-200 text-sm">{label}</p>
-  </div>
-);
