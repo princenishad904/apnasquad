@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
         </div>
 
         {/* Scrollable Content */}
-        <main className="flex-1 overflow-y-auto pb-12">
+        <main className="flex-1 overflow-y-auto pb-20">
           <div className="max-w-6xl mx-auto">{children}</div>
         </main>
 
