@@ -23,7 +23,8 @@ export default function AddBalance() {
 
       // 1) create order on backend
       const res = await fetch(
-        "http://localhost:5000/api/v1/payment/create-order",
+        // "http://localhost:5000/api/v1/payment/create-order",
+        "https://api1.team04.site/api/v1/payment/create-order",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -35,8 +36,6 @@ export default function AddBalance() {
           }),
         }
       );
-
-      console.log(res);
 
       const json = await res.json();
       if (!json?.success || !json?.data) {
@@ -57,7 +56,7 @@ export default function AddBalance() {
       }
 
       // 2) load Cashfree SDK
-      const cashfree = await load({ mode: "sandbox" }); // 'production' in live
+      const cashfree = await load({ mode: "production" }); // 'production' in live
       // 3) open checkout (this will redirect to Cashfree hosted page)
       cashfree.checkout({
         paymentSessionId,
