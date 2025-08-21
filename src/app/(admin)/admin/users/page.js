@@ -94,7 +94,6 @@ const Users = () => {
   const { currentPage, totalPages, limit } = data?.data || {};
 
   const handleEdit = (userId) => {
-    console.log(`Editing user with ID: ${userId}`);
     // Edit modal/navigation logic yahan aayega
   };
 

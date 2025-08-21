@@ -33,7 +33,6 @@ export async function middleware(request) {
       }
     } catch (error) {
       // Agar token invalid ya expired hai, toh login page par bhej do
-      console.error("Invalid token:", error);
       return NextResponse.redirect(new URL("/login", request.nextUrl));
     }
   }

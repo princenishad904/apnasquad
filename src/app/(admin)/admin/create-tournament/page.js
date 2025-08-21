@@ -51,7 +51,6 @@ const CreateTournamentPage = () => {
     const data = Object.fromEntries(formData.entries());
 
     const finalData = { ...data, prizeDistribution };
-    console.log(finalData);
 
     const { data: res, error } = await createTournament(finalData);
 

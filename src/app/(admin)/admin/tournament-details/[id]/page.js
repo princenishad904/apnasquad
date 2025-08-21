@@ -68,7 +68,6 @@ const TournamentDetails = () => {
 
     const targetDate = new Date(matchTime);
     if (isNaN(targetDate.getTime())) {
-      console.error("Invalid matchTime format:", matchTime);
       return {
         started: false,
         hours: 0,
