@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import Sidebar from "./Sidebar";
 
 const Header = () => {
   const balance = 10000; // Example balance
@@ -27,7 +28,7 @@ const Header = () => {
           </div>
 
           {/* User Profile (optional) */}
-          {/* <Button variant={"outline"} className={"cursor-pointer"}></Button> */}
+          <Sidebar />
         </div>
       </div>
     </header>
