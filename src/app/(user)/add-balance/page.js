@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useGetLoggedInUserQuery } from "@/redux/user/userApi";
 
 export default function AddBalance() {
-  const [amount, setAmount] = useState(100);
+  const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
   const router = useRouter();
@@ -15,16 +15,15 @@ export default function AddBalance() {
   const createOrderAndPay = async () => {
     try {
       setErr("");
-      if (!amount || Number(amount) < 10) {
-        setErr("Minimum amount is ₹10");
+      if (!amount || Number(amount) < 1) {
+        setErr("Minimum amount is ₹1");
         return;
       }
       setLoading(true);
 
       // 1) create order on backend
       const res = await fetch(
-        // "http://localhost:5000/api/v1/payment/create-order",
-        "https://api1.team04.site/api/v1/payment/create-order",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/payment/create-order`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -91,7 +90,7 @@ export default function AddBalance() {
           </label>
           <div className="relative">
             <input
-              type="number"
+              type="text"
               id="amount"
               min="10"
               value={amount}

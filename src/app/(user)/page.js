@@ -73,6 +73,7 @@ const Page = () => {
 
   return (
     <div className="px-4">
+      {process.env.NEXT_PUBLIC_SERVER_URL}
       <MatchCategories
         onSelectMap={handleMapSelect}
         onSelectMode={handleModSelect}
