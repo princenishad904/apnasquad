@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { formatISODateToLocal } from "@/lib/convertUTCToIST";
+import { convertToIST, formatISODateToLocal } from "@/lib/convertUTCToIST";
 import useTimeLeft from "../TimeLeft";
 
 const MatchCard = ({
@@ -22,20 +22,20 @@ const MatchCard = ({
   const progressPercent = Math.min((teamJoined / maxTeam) * 100, 100);
 
   return (
-    <div className="relative drop-shadow-xl w-full h-64 overflow-hidden rounded-xl bg-slate-800 my-4">
+    <div className="relative drop-shadow-xl w-full h-[280px] overflow-hidden rounded-xl bg-slate-800 my-4">
       <div className="absolute flex items-center justify-center text-white z-[1] opacity-90 rounded-xl inset-0.5 bg-slate-900">
-        <div className="relative z-10 p-5 w-full">
+        <div className="relative z-10 p-4 w-full">
+          <span className="font-bold text-md uppercase bg-gradient-to-r from-slate-400 to-gray-100 bg-clip-text text-transparent">
+            {title}
+          </span>
           {/* Mode and timer */}
           <div className="flex justify-between items-start mb-4">
             <div>
-              <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">
-                {title}
-              </span>
-              <h3 className="text-2xl font-bold text-white mt-1 uppercase">
+              <h3 className="text-2xl font-bold text-cyan-300 mt-1 uppercase">
                 {map}
               </h3>
               <h3 className="text-sm text-gray-300">
-                {formatISODateToLocal(startTime)}
+                {convertToIST(startTime)}
               </h3>
             </div>
 

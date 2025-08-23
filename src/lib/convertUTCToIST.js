@@ -38,3 +38,30 @@ export function formatISODateToLocal(isoString) {
   // Step 4: Dono ko 'at' laga kar jod dein.
   return `${formattedDate} at ${formattedTime}`;
 }
+
+export function convertToIST(utcTime) {
+  const date = new Date(utcTime);
+
+  const options = {
+    timeZone: "Asia/Kolkata",
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  };
+
+  const formatter = new Intl.DateTimeFormat("en-GB", options);
+  const parts = formatter.formatToParts(date);
+
+  const day = parts.find((p) => p.type === "day").value;
+  const month = parts.find((p) => p.type === "month").value;
+  const year = parts.find((p) => p.type === "year").value;
+  const hour = parts.find((p) => p.type === "hour").value;
+  const minute = parts.find((p) => p.type === "minute").value;
+  const dayPeriod = parts
+    .find((p) => p.type === "dayPeriod")
+    .value.toUpperCase();
+  return `${day}-${month}-${year} ${hour}:${minute}${dayPeriod}`;
+}

@@ -179,17 +179,17 @@ const TournamentJoin = () => {
     return <div className="text-center py-8">No tournament found</div>;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 px-4">
       {/* Tournament Header Card */}
-      <div className="relative w-full min-h-80 overflow-hidden rounded-xl bg-black/50 dark">
+      <div className="relative w-full min-h-96  overflow-hidden rounded-xl bg-black/50 dark">
         <div className="absolute inset-0.5 flex items-center justify-center backdrop-blur-5xl bg-black/80 rounded-xl">
           <div className="relative z-10 p-4 w-full space-y-4">
             {/* Title and Timer */}
+            <span className="text-xl font-semibold text-yellow-500 uppercase tracking-wider">
+              {tournament.title}
+            </span>
             <div className="flex justify-between items-start">
               <div>
-                <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">
-                  {tournament.title}
-                </span>
                 <h3 className="text-2xl font-bold text-white mt-1 uppercase">
                   {tournament.map}
                 </h3>

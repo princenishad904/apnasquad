@@ -67,7 +67,7 @@ const MyTournaments = () => {
   }
 
   return (
-    <div>
+    <div className="px-4">
       <Tabs defaultValue="live" className="w-full dark">
         <TabsList className={"w-full bg-transparent my-4"}>
           <TabsTrigger value="live" className="bg-transparent">

@@ -37,12 +37,6 @@ export default function EditProfileDialog({ button, user }) {
       const formData = new FormData(e.target);
       const data = Object.fromEntries(formData.entries());
 
-      // Validate required fields
-      if (!data.name?.trim()) {
-        setError("Name is required");
-        return;
-      }
-
       let { data: res, error } = await updateProfile(formData);
 
       if (res?.success) {
@@ -75,9 +69,11 @@ export default function EditProfileDialog({ button, user }) {
       <DialogContent className="sm:max-w-[425px] h-auto dark backdrop-blur-md bg-black/40">
         <form onSubmit={handleUpdateProfile}>
           <DialogHeader>
-            <DialogTitle>Add your upi id</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
+            <DialogTitle className={"text-start"}>
+              Add your UPI details
+            </DialogTitle>
+            <DialogDescription className={"text-start"}>
+              Add your UPI ID to enable seamless withdrawals.
             </DialogDescription>
           </DialogHeader>
 

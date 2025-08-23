@@ -59,7 +59,7 @@ const OrderDetails = () => {
   return (
     <AnimatePresence>
       <motion.div
-        className="relative flex items-center justify-center min-h-screen  bg-gray-950 text-white font-sans overflow-hidden"
+        className="relative flex items-center justify-center min-h-screen bg-gray-950 text-white font-sans overflow-hidden p-4"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -67,7 +67,7 @@ const OrderDetails = () => {
         {/* Dark Aurora Effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-violet-900/30 via-transparent to-blue-900/30 opacity-60 animate-pulse"></div>
         <motion.div
-          className={`relative p-2 rounded-3xl shadow-2xl text-center w-full max-w-lg transition-all duration-500 transform hover:scale-105 z-10
+          className={`relative p-8 rounded-3xl shadow-2xl text-center w-full max-w-lg transition-all duration-500 transform hover:scale-105 z-10
             ${
               isPaymentSuccessful
                 ? "bg-gradient-to-br from-green-900/80 to-teal-900/80 border-2 border-green-500 shadow-[0_0_25px_rgba(34,197,94,0.5)]"
@@ -116,37 +116,68 @@ const OrderDetails = () => {
               </motion.svg>
             )}
             <h1 className="text-3xl font-extrabold mb-2 text-white">
-              {isPaymentSuccessful ? "PAYMENT SUCCESSFUL!" : "PAYMENT FAILED"}
+              {isPaymentSuccessful ? "PAYMENT SUCCESSFUL" : "PAYMENT FAILED"}
             </h1>
             <p className="text-gray-300 font-light text-xl">
               {isPaymentSuccessful
-                ? "Your mission has been completed successfully."
+                ? "Successfully paid $150"
                 : "Mission failed. Please check your system logs."}
             </p>
           </motion.div>
 
           <motion.div
             variants={itemVariants}
-            className="mt-8 text-left p-4 bg-gray-800/50 rounded-xl border border-gray-700 backdrop-blur-sm"
+            className="mt-8 text-left p-6 bg-gray-800/50 rounded-xl border border-gray-700 backdrop-blur-sm"
           >
-            <h2 className="text-xl font-semibold mb-3 text-purple-400">
-              Transaction Details
+            <h2 className="text-xl font-semibold mb-4 text-purple-400">
+              Payment methods
             </h2>
-            <div className="border-t border-gray-700 my-2"></div>
-            <p className="text-gray-400 flex justify-between items-center text-md">
-              <span className="font-medium text-gray-300">Order ID:</span>
-              <span className="font-mono text-pink-400">
-                {displayData.data.orderId}
-              </span>
-            </p>
-            {isPaymentSuccessful && (
-              <p className="text-gray-400 flex justify-between items-center mt-2 text-lg">
-                <span className="font-medium text-gray-300">Amount Paid:</span>
-                <span className="font-mono text-cyan-400">
-                  ${displayData.data.amount}
+            <div className="space-y-3">
+              <p className="flex justify-between items-center text-md text-gray-400">
+                <span className="font-medium text-gray-300">
+                  Transaction ID:
+                </span>
+                <span className="font-mono text-pink-400">
+                  {displayData.data.orderId}
                 </span>
               </p>
-            )}
+              <p className="flex justify-between items-center text-md text-gray-400">
+                <span className="font-medium text-gray-300">Date:</span>
+                <span className="font-mono text-gray-300">
+                  {new Date().toLocaleDateString()}
+                </span>
+              </p>
+              <p className="flex justify-between items-center text-md text-gray-400">
+                <span className="font-medium text-gray-300">
+                  Type of Transaction:
+                </span>
+                <span className="font-mono text-gray-300">Credit Card</span>
+              </p>
+              {isPaymentSuccessful && (
+                <>
+                  <p className="flex justify-between items-center text-md text-gray-400">
+                    <span className="font-medium text-gray-300">Nominal:</span>
+                    <span className="font-mono text-cyan-400">
+                      ${displayData.data.amount}
+                    </span>
+                  </p>
+                  <p className="flex justify-between items-center text-md text-gray-400">
+                    <span className="font-medium text-gray-300">Admin:</span>
+                    <span className="font-mono text-gray-300">$0.50</span>
+                  </p>
+                </>
+              )}
+              <p className="flex justify-between items-center text-md text-gray-400">
+                <span className="font-medium text-gray-300">Status:</span>
+                <span
+                  className={`font-mono text-lg font-bold ${
+                    isPaymentSuccessful ? "text-green-400" : "text-red-400"
+                  }`}
+                >
+                  {isPaymentSuccessful ? "Success" : "Failed"}
+                </span>
+              </p>
+            </div>
           </motion.div>
 
           <motion.div variants={itemVariants} className="mt-10">
@@ -158,7 +189,7 @@ const OrderDetails = () => {
                     : "bg-red-500 text-white shadow-[0_0_15px_rgba(239,68,68,0.7)] hover:shadow-[0_0_25px_rgba(239,68,68,1)]"
                 }`}
             >
-              {isPaymentSuccessful ? "RETURN TO HUB" : "RETRY MISSION"}
+              {isPaymentSuccessful ? "GO HOME" : "RETRY MISSION"}
             </button>
           </motion.div>
         </motion.div>

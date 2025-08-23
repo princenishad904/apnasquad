@@ -15,8 +15,19 @@ const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+
+    getTransactions: builder.query({
+      query: (query) => ({
+        url: "/user/get-transaction",
+        params: query,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useUpdateProfileMutation, useGetLoggedInUserQuery } = userApi;
+export const {
+  useUpdateProfileMutation,
+  useGetLoggedInUserQuery,
+  useLazyGetTransactionsQuery,
+} = userApi;

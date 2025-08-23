@@ -15,24 +15,7 @@ import { useGetLoggedInUserQuery } from "@/redux/user/userApi";
 import ProfileLoader from "@/components/user/ProfileLoader";
 import Link from "next/link";
 import WithdrawDrawer from "@/components/user/WithdrawDrawer";
-
-// Modern icons
-const Crown = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14" />
-  </svg>
-);
+import { FileText, DollarSign, Wallet, Book } from "lucide-react";
 
 const Swords = (props) => (
   <svg
@@ -54,66 +37,19 @@ const Swords = (props) => (
   </svg>
 );
 
-const Wallet = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
-    <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
-    <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z" />
-  </svg>
-);
-
-const Trophy = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-    <path d="M4 22h16" />
-    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
-    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
-    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-  </svg>
-);
-
-const Users = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-    <circle cx="9" cy="7" r="4" />
-    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-  </svg>
-);
+const Card = ({ title, subtitle, icon, iconBgColor }) => {
+  return (
+    <div className="flex items-center space-x-4 border border-gray-600 rounded-xl bg-natural-500/20 p-4 shadow-md">
+      <div className={`flex-shrink-0 p-3 rounded-xl ${iconBgColor}`}>
+        {icon}
+      </div>
+      <div className="flex-grow">
+        <h3 className="text-sm">{title}</h3>
+        <p className="text-xs text-neutral-400">{subtitle}</p>
+      </div>
+    </div>
+  );
+};
 
 // Main Profile Component
 export default function Profile() {
@@ -135,29 +71,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-transparent font-sans text-white relative overflow-hidden px-4 py-6">
-      {/* Animated background elements */}
-      <div className="absolute top-0 left-0 w-full h-72 bg-gradient-to-b from-blue-900/20 to-transparent -z-10"></div>
-      <div className="absolute -top-24 -left-24 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl -z-10"></div>
-      <div className="absolute top-1/2 -right-24 w-72 h-72 bg-cyan-600/10 rounded-full blur-3xl -z-10"></div>
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl -z-10"></div>
-
-      {/* Floating particles */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${15 + Math.random() * 10}s`,
-            }}
-          ></div>
-        ))}
-      </div>
-
+    <div className="w-full min-h-screen bg-transparent font-sans text-white relative overflow-hidden px-4 py-1">
       <div className="max-w-md mx-auto z-10 relative">
         {/* Admin Link Button */}
         {user?.data?.role === "admin" && (
@@ -171,12 +85,12 @@ export default function Profile() {
         )}
 
         {/* Profile Header Card */}
-        <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl p-6 flex flex-col items-center justify-center gap-4 mb-6 shadow-2xl overflow-hidden">
+        <div className="relative rounded-2xl p-4 flex items-center gap-4 mb-2 overflow-hidden">
           {/* Light effect behind avatar */}
-          <div className="absolute -top-10 -left-10 w-32 h-32 bg-blue-500/20 rounded-full blur-xl"></div>
+          <div className="absolute -top-10 -left-10 w-32 h-32  rounded-full blur-xl"></div>
 
           <div className="relative">
-            <Avatar className="size-24 ring-4 ring-blue-500/30 transition-transform duration-300 hover:scale-105 z-10">
+            <Avatar className="size-20 ring-4 ring-blue-500/30 transition-transform duration-300 hover:scale-105 z-10">
               <AvatarImage
                 className="object-cover"
                 src={user?.data?.avatar || "https://github.com/shadcn.png"}
@@ -185,28 +99,31 @@ export default function Profile() {
                 {user?.data?.name?.charAt(0) || "U"}
               </AvatarFallback>
             </Avatar>
-            {/* Online status indicator */}
-            <div className="absolute bottom-2 right-2 w-4 h-4 bg-green-500 rounded-full ring-2 ring-gray-900"></div>
           </div>
 
-          <div className="flex-1 text-center">
+          <div className="flex-1">
             <h2 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
               {user?.data?.name}
             </h2>
-            <p className="text-gray-400 text-sm mt-1">
+            <p className="text-gray-400 text-sm">
               {user?.data?.email || "Email not set"}
             </p>
             {user?.data?.bgmiId && (
               <p className="text-gray-400 text-sm mt-1">
-                BGMI ID: {user?.data?.bgmiId}
+                BGMI ID: {user?.data?.bgmiId || "Add your BGMI ID"}
               </p>
             )}
           </div>
         </div>
 
+        <div className="grid grid-cols-2 gap-3 my-4">
+          <CreateTeam user={user?.data} />
+          <EditProfileDailog />
+        </div>
+
         {/* Wallet Section */}
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl p-5 mb-6 relative overflow-hidden">
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl"></div>
+        <div className="my-8 relative overflow-hidden">
+          <div className="absolute  -right-10 w-28 h-28 rounded-full blur-2xl"></div>
 
           <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <Wallet className="w-5 h-5 text-blue-400" />
@@ -239,9 +156,51 @@ export default function Profile() {
           </div>
         </div>
 
+        <div className=" text-white my-4 ">
+          <div className="grid grid-cols-2 gap-2  w-full">
+            {/* Card for Game History */}
+            <Link href={"/transactions?type=game"}>
+              <Card
+                title="Game"
+                subtitle="Game history"
+                icon={<FileText color="#5A88FF" size={20} />}
+                iconBgColor="bg-blue-600/20"
+              />
+            </Link>
+
+            <Link href={"/transactions?type="}>
+              <Card
+                title="Transaction"
+                subtitle="Transaction history"
+                icon={<FileText color="#22B18E" size={20} />}
+                iconBgColor="bg-teal-600/20"
+              />
+            </Link>
+
+            <Link href={"/transactions?type=deposit"}>
+              {/* Card for Deposit */}
+              <Card
+                title="Deposit"
+                subtitle="Deposit history"
+                icon={<Book color="#E34E57" size={20} />}
+                iconBgColor="bg-red-600/20"
+              />
+            </Link>
+
+            <Link href={"/transactions?type=withdraw"}>
+              {/* Card for Withdraw */}
+              <Card
+                title="Withdraw"
+                subtitle="Withdraw history"
+                icon={<Wallet color="#EAA64F" size={20} />}
+                iconBgColor="bg-orange-600/20"
+              />
+            </Link>
+          </div>
+        </div>
         {/* Referral Section */}
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl p-5 mb-6 relative overflow-hidden">
-          <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-purple-500/10 rounded-full blur-2xl"></div>
+        <div className=" p-5 mb-6 relative overflow-hidden">
+          <div className="absolute -bottom-10 -left-10 w-28 h-28  rounded-full blur-2xl"></div>
 
           <h3 className="text-lg font-semibold mb-3">Referral Code</h3>
 
@@ -254,30 +213,6 @@ export default function Profile() {
               Invite Friends
             </button>
           </Link>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl p-5 mb-6">
-          <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
-
-          <div className="grid grid-cols-2 gap-3">
-            <CreateTeam user={user?.data} />
-            <EditProfileDailog />
-
-            <Link href={"/transactions"}>
-              <div className="bg-gray-800/50 hover:bg-gray-700/50 border border-gray-700 rounded-lg p-3 text-center transition-all cursor-pointer">
-                <Wallet className="w-6 h-6 text-green-400 mx-auto mb-1" />
-                <p className="text-sm">Transactions</p>
-              </div>
-            </Link>
-
-            <Link href={"/my-matches"}>
-              <div className="bg-gray-800/50 hover:bg-gray-700/50 border border-gray-700 rounded-lg p-3 text-center transition-all cursor-pointer">
-                <Swords className="w-6 h-6 text-red-400 mx-auto mb-1" />
-                <p className="text-sm">My Matches</p>
-              </div>
-            </Link>
-          </div>
         </div>
 
         {/* Logout Button */}
