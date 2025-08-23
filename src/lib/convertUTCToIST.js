@@ -1,3 +1,17 @@
+import { format } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
+
+export function convertToIST(utcTime) {
+  // Target timezone
+  const timeZone = "Asia/Kolkata";
+
+  // Convert UTC string to Date and shift to IST
+  const istDate = utcToZonedTime(utcTime, timeZone);
+
+  // Format → "23-08-2025 09:00PM"
+  return format(istDate, "dd-MM-yyyy hh:mmaaa");
+}
+
 export function convertUTCToIST(utcDateString) {
   const utcDate = new Date(utcDateString);
 
@@ -37,26 +51,4 @@ export function formatISODateToLocal(isoString) {
 
   // Step 4: Dono ko 'at' laga kar jod dein.
   return `${formattedDate} at ${formattedTime}`;
-}
-
-export function convertToIST(utcTime) {
-  const date = new Date(utcTime);
-
-  const options = {
-    timeZone: "Asia/Kolkata",
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  };
-
-  const formatter = new Intl.DateTimeFormat("en-GB", options);
-  const formatted = formatter.format(date);
-
-  // "23/08/2025, 05:30 pm" → convert to "23-08-2025 05:30PM"
-  const [d, m, rest] = formatted.split("/");
-  const [year, time] = rest.split(", ");
-  return `${d}-${m}-${year.trim()} ${time.toUpperCase()}`;
 }
