@@ -44,8 +44,8 @@ export function convertToIST(utcTime) {
 
   const options = {
     timeZone: "Asia/Kolkata",
-    day: "numeric",
-    month: "numeric",
+    day: "2-digit",
+    month: "2-digit",
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
@@ -53,15 +53,10 @@ export function convertToIST(utcTime) {
   };
 
   const formatter = new Intl.DateTimeFormat("en-GB", options);
-  const parts = formatter.formatToParts(date);
+  const formatted = formatter.format(date);
 
-  const day = parts.find((p) => p.type === "day").value;
-  const month = parts.find((p) => p.type === "month").value;
-  const year = parts.find((p) => p.type === "year").value;
-  const hour = parts.find((p) => p.type === "hour").value;
-  const minute = parts.find((p) => p.type === "minute").value;
-  const dayPeriod = parts
-    .find((p) => p.type === "dayPeriod")
-    .value.toUpperCase();
-  return `${day}-${month}-${year} ${hour}:${minute}${dayPeriod}`;
+  // "23/08/2025, 05:30 pm" → convert to "23-08-2025 05:30PM"
+  const [d, m, rest] = formatted.split("/");
+  const [year, time] = rest.split(", ");
+  return `${d}-${m}-${year.trim()} ${time.toUpperCase()}`;
 }
