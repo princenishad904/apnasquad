@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { convertToIST, formatISODateToLocal } from "@/lib/convertUTCToIST";
+import { formatISODateToLocal } from "@/lib/convertUTCToIST";
 import useTimeLeft from "../TimeLeft";
 
 const MatchCard = ({
@@ -35,7 +35,7 @@ const MatchCard = ({
                 {map}
               </h3>
               <h3 className="text-sm text-gray-300">
-                {convertToIST(startTime)}
+                {formatISODateToLocal(startTime)}
               </h3>
             </div>
 
