@@ -2,7 +2,7 @@
 import Loader from "@/components/Loader";
 import TransactionCard from "@/components/user/TransactionCard";
 import { useLazyGetTransactionsQuery } from "@/redux/user/userApi";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -62,76 +62,80 @@ const Transaction = () => {
   }
 
   return (
-    <div className="overflow-hidden">
-      <h2 className="px-2 py-4 text-xl font-medium capitalize">
-        {type} History
-      </h2>
-      <div className="dark flex items-center justify-between px-2">
-        <span>Filter</span>
-        <Button
-          variant={"outline"}
-          onClick={() => setQuery({ page: 1, type: type || "" })}
-        >
-          Reset Filter
-        </Button>
-      </div>
-      <div className="dark my-4 grid grid-cols-2 gap-1 px-2">
-        <div>
-          <Select onValueChange={(value) => handleQueryChange("status", value)}>
-            <SelectTrigger className="w-[140px]">
-              <SelectValue placeholder="Status" />
-            </SelectTrigger>
-            <SelectContent className={"dark"}>
-              <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="success">Success</SelectItem>
-              <SelectItem value="failed">Failed</SelectItem>
-              <SelectItem value="processing">Processing</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div>
-          <Input
-            id="matchTime"
-            type="date"
-            value={query.matchTime || ""}
-            onChange={(e) => handleQueryChange("matchTime", e.target.value)}
-          />
-        </div>
-      </div>
-
-      {transaction.length > 0 ? (
-        transaction.map((item, index) => (
-          <div key={index}>
-            <TransactionCard transaction={item} />
-          </div>
-        ))
-      ) : (
-        <p className="text-center text-gray-400">No transactions found.</p>
-      )}
-
-      {/* Yahi section hai jo loader ko show karta hai */}
-      {isFetching && (
-        <div className="my-4 flex w-full justify-center">
-          <Loader color="white" size={20} />
-        </div>
-      )}
-
-      {data?.data?.pagination?.hasNextPage && !isFetching && (
-        <div className="my-4 flex justify-center">
+    <Suspense fallback={<Loader color="white" size={24} />}>
+      <div className="overflow-hidden">
+        <h2 className="px-2 py-4 text-xl font-medium capitalize">
+          {type} History
+        </h2>
+        <div className="dark flex items-center justify-between px-2">
+          <span>Filter</span>
           <Button
             variant={"outline"}
-            onClick={() =>
-              setQuery((prev) => ({
-                ...prev,
-                page: prev.page + 1, // Sirf page ko update kiya
-              }))
-            }
+            onClick={() => setQuery({ page: 1, type: type || "" })}
           >
-            Load More
+            Reset Filter
           </Button>
         </div>
-      )}
-    </div>
+        <div className="dark my-4 grid grid-cols-2 gap-1 px-2">
+          <div>
+            <Select
+              onValueChange={(value) => handleQueryChange("status", value)}
+            >
+              <SelectTrigger className="w-[140px]">
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent className={"dark"}>
+                <SelectItem value="pending">Pending</SelectItem>
+                <SelectItem value="success">Success</SelectItem>
+                <SelectItem value="failed">Failed</SelectItem>
+                <SelectItem value="processing">Processing</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Input
+              id="matchTime"
+              type="date"
+              value={query.matchTime || ""}
+              onChange={(e) => handleQueryChange("matchTime", e.target.value)}
+            />
+          </div>
+        </div>
+
+        {transaction.length > 0 ? (
+          transaction.map((item, index) => (
+            <div key={index}>
+              <TransactionCard transaction={item} />
+            </div>
+          ))
+        ) : (
+          <p className="text-center text-gray-400">No transactions found.</p>
+        )}
+
+        {/* Yahi section hai jo loader ko show karta hai */}
+        {isFetching && (
+          <div className="my-4 flex w-full justify-center">
+            <Loader color="white" size={20} />
+          </div>
+        )}
+
+        {data?.data?.pagination?.hasNextPage && !isFetching && (
+          <div className="my-4 flex justify-center">
+            <Button
+              variant={"outline"}
+              onClick={() =>
+                setQuery((prev) => ({
+                  ...prev,
+                  page: prev.page + 1, // Sirf page ko update kiya
+                }))
+              }
+            >
+              Load More
+            </Button>
+          </div>
+        )}
+      </div>
+    </Suspense>
   );
 };
 
