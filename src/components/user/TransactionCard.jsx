@@ -1,9 +1,11 @@
-import { convertToIST, formatISODateToLocal } from "@/lib/convertUTCToIST";
+
+import { getISTCreatedDate } from "@/lib/getISTCreatedDate";
 import { Copy, IndianRupee } from "lucide-react";
 import React from "react";
 import { toast } from "sonner";
 
 const TransactionCard = ({ transaction, key }) => {
+  console.log(transaction)
   return (
     <div
       key={key}
@@ -55,7 +57,7 @@ const TransactionCard = ({ transaction, key }) => {
           <div className="flex justify-between items-center">
             <span className="text-neutral-400 font-medium">Time</span>
             <span className="text-white font-sm">
-              {convertToIST(transaction?.createdAt)}
+              {getISTCreatedDate(transaction?.createdAt)}
             </span>
           </div>
 

@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 
 import useTimeLeft from "../TimeLeft";
-import { convertUTCToIST, formatISODateToLocal } from "@/lib/convertUTCToIST";
+import {  formatISODateToLocal } from "@/lib/convertUTCToIST";
 
 const MatchCard = ({
   id,

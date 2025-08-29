@@ -1,26 +1,7 @@
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 
-export function convertToIST(utcTime) {
-  // Target timezone
-  const timeZone = "Asia/Kolkata";
 
-  // Convert UTC string to Date and shift to IST
-  const istDate = utcToZonedTime(utcTime, timeZone);
-
-  // Format → "23-08-2025 09:00PM"
-  return format(istDate, "dd-MM-yyyy hh:mmaaa");
-}
-
-export function convertUTCToIST(utcDateString) {
-  const utcDate = new Date(utcDateString);
-
-  // IST offset (5 hours 30 minutes ahead of UTC)
-  const istOffset = 5.5 * 60 * 60 * 1000;
-
-  const istDate = new Date(utcDate.getTime() + istOffset);
-  return istDate.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
-}
 
 export function formatISODateToLocal(isoString) {
   // Step 1: ISO string se Date object banayein.

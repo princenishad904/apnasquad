@@ -28,17 +28,16 @@ const Transaction = () => {
     type: type || "",
   });
 
-  // Yeh useEffect ab single source of truth (query) ko monitor karega
+
   useEffect(() => {
-    // Agar koi filter change hota hai, to transaction list ko reset kare
-    // sirf tab jab page 1 ho
+
     if (query.page === 1) {
       setTransaction([]);
     }
     trigger(query);
-  }, [query, trigger]); // Dependency array mein sirf query aur trigger hai
+  }, [query, trigger]); 
 
-  // Data aane par transaction state ko update karega
+ 
   useEffect(() => {
     if (data?.data?.transactions) {
       setTransaction((prev) => [...prev, ...data.data.transactions]);
