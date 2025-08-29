@@ -16,7 +16,7 @@ export default function AddBalance() {
     try {
       setErr("");
       if (!amount || Number(amount) < 1) {
-        setErr("Minimum amount is ₹1");
+        setErr("Minimum amount is ₹10");
         return;
       }
       setLoading(true);
@@ -28,7 +28,7 @@ export default function AddBalance() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            amount,
+          amount:Number(amount) ,
             email: data?.data?.email,
             phone: data?.data?.phone || "",
             _id: data?.data?._id, // replace with real user id
@@ -64,7 +64,7 @@ export default function AddBalance() {
 
       // After this the user is redirected. We don't continue here.
     } catch (e) {
-      console.error("payment error", e);
+     
       setErr("Payment failed to initiate");
       setLoading(false);
     }
@@ -94,7 +94,7 @@ export default function AddBalance() {
               id="amount"
               min="10"
               value={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
+              onChange={(e) => setAmount(e.target.value)}
               className="w-full bg-slate-800 border-2 border-indigo-500 rounded-lg px-4 py-3 text-white text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-colors duration-200"
               placeholder="e.g., 500"
             />
