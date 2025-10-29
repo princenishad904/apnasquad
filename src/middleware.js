@@ -22,20 +22,7 @@ export async function middleware(request) {
     return NextResponse.redirect(new URL("/start", request.nextUrl));
   }
 
-  if (isAdminPath && token) {
-    try {
-      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-
-      const { payload } = await jwtVerify(token, secret);
-
-      if (payload.role !== "admin") {
-        return NextResponse.redirect(new URL("/", request.nextUrl));
-      }
-    } catch (error) {
-      // Agar token invalid ya expired hai, toh login page par bhej do
-      return NextResponse.redirect(new URL("/login", request.nextUrl));
-    }
-  }
+ 
 
   // 5. Agar sab theek hai, toh request ko aage badhne do
   return NextResponse.next();

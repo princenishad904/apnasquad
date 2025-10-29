@@ -130,7 +130,7 @@ export default function AddBalance() {
         <button
           onClick={createOrderAndPay}
           disabled={loading}
-          className="w-full py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-400 font-bold text-black text-lg uppercase tracking-wider shadow-lg shadow-indigo-500/40 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:shadow-none disabled:transform-none"
+          className="w-full py-4 rounded-xl  from-indigo-500 to-indigo-400 font-bold text-black text-lg uppercase tracking-wider shadow-lg shadow-indigo-500/40 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:shadow-none disabled:transform-none"
         >
           {loading ? "Opening payment gateway..." : `Add ₹${amount}`}
         </button>
