@@ -23,15 +23,15 @@ export default function TextCopy({ text = "pass text" }) {
   };
 
   return (
-    <div className="dark w-full py-1 px-2 rounded-md h-auto flex items-center gap-4 border border-gray-700 justify-between">
-      <p className="text-gray-300">{text}</p>
+    <div className="dark w-full py-1 px-2 rounded-md h-auto flex items-center gap-4 border border-gray-800 justify-between">
+      <p className="text-gray-300 text-sm">{text}</p>
 
       <Button
         onClick={handleCopy}
         variant={"outline"}
         className={"cursor-pointer size-8"}
       >
-        <Copy size={5} />
+        <Copy size={2} />
       </Button>
     </div>
   );

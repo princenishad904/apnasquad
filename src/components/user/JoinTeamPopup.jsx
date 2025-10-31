@@ -28,7 +28,7 @@ export default function JoinTeamPopup({ button }) {
 
     const { data, error } = await joinTournamentViaPassword({
       teamId: Number(credential.teamId),
-      teamPassword: Number(credential.teamPassword),
+  
     });
 
     if (error) return toast.error(error?.data?.message);
@@ -66,10 +66,7 @@ export default function JoinTeamPopup({ button }) {
               <Label htmlFor="teamId">Team Id</Label>
               <Input id="teamId" name="teamId" />
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="teamPassword">Team Password</Label>
-              <Input id="teamPassword" name="teamPassword" />
-            </div>
+           
           </div>
 
           <DialogFooter>

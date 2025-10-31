@@ -4,7 +4,6 @@ import { useParams } from "next/navigation";
 import { toast } from "sonner";
 import {
   useGetTournamentDetailsQuery,
-  useJoinTournamentMutation,
 } from "@/redux/tournament/tournamentApi";
 import { formatISODateToLocal } from "@/lib/convertUTCToIST";
 import { Button } from "@/components/ui/button";
@@ -17,6 +16,7 @@ import JoinTeamPopup from "@/components/user/JoinTeamPopup";
 import Loader from "@/components/Loader";
 import TextCopy from "@/components/TextCopy";
 import useTimeLeft from "@/components/TimeLeft";
+import  { SwipeButton } from "@/components/user/RegisterConfirmation";
 
 const PrizeIcon = () => (
   <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -45,7 +45,6 @@ const TournamentJoin = () => {
   const { data, error, isLoading } = useGetTournamentDetailsQuery({
     tournamentId: id,
   });
-  const [joinTournament, { isLoading: joining }] = useJoinTournamentMutation();
 
   const tournament = data?.data?.tournament;
   const teams = data?.data?.teams || [];
@@ -128,18 +127,6 @@ const TournamentJoin = () => {
     return `${teams.length}/${tournament?.totalSpots} ${modeText}`;
   }, [teams.length, tournament?.totalSpots, tournament?.mode]);
 
-  const handleRegistration = async () => {
-    const { data, error } = await joinTournament({ tournamentId: id });
-
-    if (error) {
-      toast.error(error?.data?.message);
-      return;
-    }
-
-    if (data?.success) {
-      toast.success(data?.message);
-    }
-  };
 
   const renderTeamSlots = () => {
     if (!tournament?.totalSpots) return null;
@@ -269,18 +256,11 @@ const TournamentJoin = () => {
             {!isJoined && (
               <div
                 className={`grid ${
-                  tournament.mode === "solo" ? "grid-cols-1" : "grid-cols-2"
+                  tournament.mode === "solo" ? "grid-cols-1" : "grid-cols-1"
                 } gap-4`}
               >
                 {tournament.mode !== "solo" && <JoinTeamPopup />}
-                <Button
-                  disabled={joining}
-                  onClick={handleRegistration}
-                  variant="outline"
-                  className="w-full"
-                >
-                  {joining ? <Loader /> : "Register now"}
-                </Button>
+              
               </div>
             )}
 
@@ -289,38 +269,49 @@ const TournamentJoin = () => {
               <div className="grid grid-cols-2 gap-4 py-4 rounded-2xl bg-black/40">
                 <div>
                   <Label className="mb-1 text-gray-400">Room ID</Label>
-                  <TextCopy text={teamId} />
+                  <TextCopy text={tournament.roomId} />
                 </div>
                 <div>
                   <Label className="mb-1 text-gray-400">Room Password</Label>
-                  <TextCopy text={teamPassword} />
+                  <TextCopy text={tournament.password || 123} />
                 </div>
               </div>
             )}
             {tournament?.roomId && teamId ? (
               ""
             ) : (
-              <p className="text-center text-gray-400 text-sm">
+              <>
+               <p className="text-center text-gray-400 text-sm">
                 Match start hone se 10 minutes pahale hi room and password yehi
                 show hoga 👉
               </p>
+              </>
+             
             )}
           </div>
         </div>
         <div className="absolute w-96 h-66 bg-green-950 blur-[50px] left-20 top-1/2" />
       </div>
 
+
+      {/* swipe to register */}
+
+
+         {!isJoined && (
+              <SwipeButton id={id}  />
+            )}
+
+               
+
+
       {/* Team Info */}
       {teamId && tournament.mode !== "solo" && (
-        <div className="grid grid-cols-2 gap-4 p-4 rounded-2xl bg-black/40">
+        <div className=" gap-4 p-4 rounded-2xl bg-black/40">
           <div>
             <Label className="mb-1 text-gray-400">Team ID</Label>
             <TextCopy text={teamId} />
           </div>
-          <div>
-            <Label className="mb-1 text-gray-400">Team Password</Label>
-            <TextCopy text={teamPassword} />
-          </div>
+       
         </div>
       )}
 
@@ -361,6 +352,15 @@ const TournamentJoin = () => {
           ))}
         </TabsContent>
       </Tabs>
+
+
+
+
+
+
+
+
+      
     </div>
   );
 };

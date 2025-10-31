@@ -15,6 +15,9 @@ const Page = () => {
     mode: "",
   });
 
+
+ 
+
   const { ref, inView } = useInView({
     threshold: 0,
     triggerOnce: false, // Change this to false for infinite scroll
@@ -102,7 +105,7 @@ const Page = () => {
               maxTeam={e.totalSpots}
               prizePool={e.prizePool}
               startTime={e.matchTime}
-              teamJoined={e.joinedSpots || 0}
+              teamJoined={e.registrationCount || 0}
             />
           </div>
         ))}

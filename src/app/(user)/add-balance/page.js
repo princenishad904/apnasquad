@@ -55,7 +55,7 @@ export default function AddBalance() {
       }
 
       // 2) load Cashfree SDK
-      const cashfree = await load({ mode: "production" }); // 'production' in live
+      const cashfree = await load({ mode: "sandbox" }); // 'production' in live
       // 3) open checkout (this will redirect to Cashfree hosted page)
       cashfree.checkout({
         paymentSessionId,
