@@ -54,6 +54,7 @@ const Card = ({ title, subtitle, icon, iconBgColor }) => {
 // Main Profile Component
 export default function Profile() {
   const { data: user, isLoading: isUserGetting } = useGetLoggedInUserQuery();
+
   const [logout, { isLoading }] = useLogoutMutation();
   const router = useRouter();
 
@@ -79,6 +80,15 @@ export default function Profile() {
             <div className="w-full bg-gradient-to-r from-purple-700 to-blue-700 p-0.5 rounded-xl">
               <div className="bg-gray-900 rounded-xl p-3 text-center font-bold text-white hover:bg-gray-800 transition-colors cursor-pointer">
                 Admin Dashboard
+              </div>
+            </div>
+          </Link>
+        )}
+        {user?.data?.role === "manager" && (
+          <Link href={"/admin"} className="block mb-4">
+            <div className="w-full bg-gradient-to-r from-purple-700 to-blue-700 p-0.5 rounded-xl">
+              <div className="bg-gray-900 rounded-xl p-3 text-center font-bold text-white hover:bg-gray-800 transition-colors cursor-pointer">
+                Access Dashboard
               </div>
             </div>
           </Link>

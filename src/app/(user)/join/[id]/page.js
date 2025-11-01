@@ -282,7 +282,7 @@ const TournamentJoin = () => {
             ) : (
               <>
                <p className="text-center text-gray-400 text-sm">
-                Match start hone se 10 minutes pahale hi room and password yehi
+                Match start hone se {tournament.map === "tdm" ? "10" : "30" } minutes pahale hi room and password yehi
                 show hoga 👉
               </p>
               </>
@@ -306,7 +306,7 @@ const TournamentJoin = () => {
 
       {/* Team Info */}
       {teamId && tournament.mode !== "solo" && (
-        <div className=" gap-4 p-4 rounded-2xl bg-black/40">
+        <div className=" gap-2 p-4 rounded-2xl bg-black/40">
           <div>
             <Label className="mb-1 text-gray-400">Team ID</Label>
             <TextCopy text={teamId} />
@@ -328,10 +328,10 @@ const TournamentJoin = () => {
 
         <TabsContent value="Teams">
           <div
-            className={`mt-4 ${
+            className={`mt-1 ${
               tournament.mode === "squad"
-                ? "grid sm:grid-cols-2 gap-2"
-                : "flex flex-wrap gap-4 justify-center"
+                ? "grid sm:grid-cols-2 "
+                : "flex flex-wrap justify-center"
             }`}
           >
             {renderTeamSlots()}

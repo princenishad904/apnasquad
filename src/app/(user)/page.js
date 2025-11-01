@@ -65,6 +65,7 @@ const Page = () => {
   };
 
   const handleResetFilter = () => {
+    if(!query.map && !query.mode) return;
     setTournaments([]); // Reset tournaments on filter change
     setQuery({
       page: 1,
@@ -88,7 +89,7 @@ const Page = () => {
         </div>
       )}
       {!isLoading && !isFetching && tournaments.length === 0 && (
-        <div className="flex flex-col items-center justify-center p-8 text-center rounded-lg bg-black/20">
+        <div className="flex flex-col items-center justify-center p-8 text-center rounded-lg bg-black/20 mt-6">
           <h2 className="text-xl text-white">No Matches Found</h2>
         </div>
       )}

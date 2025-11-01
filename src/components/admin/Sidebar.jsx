@@ -6,17 +6,23 @@ import {
   Users,
   Settings,
   Wallet,
-  BarChart,
   LogOut,
 } from "lucide-react";
-import GlassCard from "@/components/ui/GlassCard"; // Adjust path
+import GlassCard from "@/components/ui/GlassCard";
 import Link from "next/link";
 import { useLogoutMutation } from "@/redux/auth/authApi";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Loader from "../Loader";
+import { useGetLoggedInUserQuery } from "@/redux/user/userApi";
 
 const Sidebar = ({ isSidebarOpen, setSidebarOpen }) => {
+  const { data: user } = useGetLoggedInUserQuery();
+  const role = user?.data?.role; // either 'admin' or 'manager'
+
+  const router = useRouter();
+  const [logout, { isLoading }] = useLogoutMutation();
+
   const sidebarVariants = {
     open: { x: 0, transition: { type: "spring", stiffness: 300, damping: 30 } },
     closed: {
@@ -25,28 +31,31 @@ const Sidebar = ({ isSidebarOpen, setSidebarOpen }) => {
     },
   };
 
-  const [logout, { isLoading }] = useLogoutMutation();
-  const navItems = [
+  // ✅ Define all routes
+  const allRoutes = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
-    {
-      icon: LayoutDashboard,
-      label: "Add Tournaments",
-      href: "/admin/create-tournament",
-    },
+    { icon: LayoutDashboard, label: "Add Tournaments", href: "/admin/create-tournament" },
     { icon: Swords, label: "Tournaments", href: "/admin/tournaments" },
     { icon: Users, label: "Users", href: "/admin/users" },
-    // { icon: Wallet, label: "Earnings", href: "/admin/earnings" },
     { icon: Wallet, label: "Withdrawals", href: "/admin/withdrawals" },
     { icon: Settings, label: "Transactions", href: "/admin/transactions" },
   ];
 
-  const router = useRouter();
+  // ✅ Filter routes based on role
+  const filteredRoutes =
+    role === "admin"
+      ? allRoutes // admin sees all
+      : role === "manager"
+      ? allRoutes.filter((item) =>
+          ["/admin", "/admin/create-tournament", "/admin/tournaments"].includes(item.href)
+        )
+      : []; // default: no access
 
   const handleLogout = async () => {
     const { data, error } = await logout();
     if (error) return toast.error(error?.data?.message);
     if (data?.success) {
-      toast.success("logout successfull");
+      toast.success("Logout successful");
       router.push("/login");
     }
   };
@@ -84,13 +93,13 @@ const Sidebar = ({ isSidebarOpen, setSidebarOpen }) => {
             </svg>
           </button>
         </div>
+
         <nav className="flex flex-col gap-2 flex-grow">
-          {navItems.map((item, index) => (
+          {filteredRoutes.map((item, index) => (
             <Link
               key={index}
               href={item.href}
               className={`flex items-center gap-4 p-3 rounded-lg text-slate-300 hover:bg-cyan-400/10 hover:text-cyan-300 transition-all duration-300 ${
-                // Simple logic to highlight the active link
                 typeof window !== "undefined" &&
                 window.location.pathname === item.href
                   ? "bg-cyan-500/20 text-cyan-300"
@@ -102,12 +111,13 @@ const Sidebar = ({ isSidebarOpen, setSidebarOpen }) => {
             </Link>
           ))}
         </nav>
+
         <div className="mt-auto">
           <button
             onClick={handleLogout}
             className="flex w-full cursor-pointer items-center gap-4 p-3 rounded-lg text-slate-300 hover:bg-red-500/10 hover:text-red-400 transition-all duration-300"
           >
-            <LogOut className="w-5 h-5" />{" "}
+            <LogOut className="w-5 h-5" />
             {isLoading ? <Loader /> : <span>Logout</span>}
           </button>
         </div>

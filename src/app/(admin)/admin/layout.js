@@ -80,7 +80,7 @@ export default function AdminLayout({ children }) {
           </header>
 
           {/* Page Content */}
-          <main className="flex-1  order overflow-y-scroll text-white">
+          <main className="flex-1 p-4  order overflow-y-scroll text-white">
             {children}
           </main>
         </div>

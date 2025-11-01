@@ -60,20 +60,13 @@ const Transaction = () => {
     );
   }
 
+
   return (
     <div className="overflow-hidden">
       <h2 className="px-2 py-4 text-xl font-medium capitalize">
         {type} History
       </h2>
-      <div className="dark flex items-center justify-between px-2">
-        <span>Filter</span>
-        <Button
-          variant={"outline"}
-          onClick={() => setQuery({ page: 1, type: type || "" })}
-        >
-          Reset Filter
-        </Button>
-      </div>
+ 
       <div className="dark my-4 grid grid-cols-2 gap-1 px-2">
         <div>
           <Select onValueChange={(value) => handleQueryChange("status", value)}>

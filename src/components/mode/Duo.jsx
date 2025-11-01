@@ -8,7 +8,7 @@ const Duo = React.memo(({ slot = "0", players = [] }) => {
   const slotArray = Array(2).fill(null);
 
   return (
-    <div className="max-w-[122px] flex flex-col items-start bg-gray-800 bg-opacity-70 border border-gray-700 rounded-lg p-2">
+    <div className="max-w-[122px] flex flex-col items-start bg-gray-800 bg-opacity-70 border border-gray-700 rounded p-2">
       {/* Team Header */}
       <div className="text-gray-300 text-sm font-semibold mb-3 px-2">
         Slot {slot}
@@ -21,7 +21,7 @@ const Duo = React.memo(({ slot = "0", players = [] }) => {
           return (
             <div
               key={idx}
-              className="relative border border-gray-600 bg-gray-700 bg-opacity-50 size-12 flex items-center justify-center rounded-lg overflow-hidden transition-colors mx-auto duration-200 hover:border-blue-400 cursor-pointer"
+              className="relative border border-gray-600 bg-gray-700 bg-opacity-50 size-12 flex items-center justify-center overflow-hidden transition-colors mx-auto duration-200 hover:border-blue-400 cursor-pointer"
             >
               {player ? (
                 <>

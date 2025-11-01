@@ -15,8 +15,8 @@ const Header = () => {
           <Image
             src={"https://i.postimg.cc/02q763xt/app-logo.webp"}
             alt="logo"
-            height={48}
-            width={48}
+            height={32}
+            width={32}
           />
         </div>
 
