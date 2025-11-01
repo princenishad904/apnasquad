@@ -5,7 +5,7 @@
       "has": [
         { "type": "host", "value": "www.apnasquad.site" }
       ],
-      "destination": "https://apnasquad.site/:1",
+      "destination": "https://apnasquad.site/$1",
       "permanent": true
     }
   ]
