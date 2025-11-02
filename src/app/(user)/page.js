@@ -133,7 +133,7 @@ const Page = () => {
      
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-6 max-w-6xl">
+      <div className="mx-auto px-4 py-6 max-w-6xl">
         {/* Categories Section */}
         <div className="mb-4">
           <div className="bg-gray-800/30 rounded-2xl p-4 md:p-6 border border-gray-700/50 backdrop-blur-sm">
