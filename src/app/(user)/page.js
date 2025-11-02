@@ -210,8 +210,6 @@ const Page = () => {
         )}
       </div>
 
-      {/* Bottom spacing for mobile */}
-      <div className="h-6 md:h-8"></div>
     </div>
   );
 };

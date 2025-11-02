@@ -7,8 +7,6 @@ import BottomNav from "@/components/user/BottomNav";
 const Layout = ({ children }) => {
   return (
     <div className="relative text-white max-w-xl mx-auto h-screen bg-gray-900 overflow-x-hidden">
-    
-
       {/* Content Layout */}
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Enhanced Header with Glass Effect */}
@@ -18,22 +16,20 @@ const Layout = ({ children }) => {
           </div>
         </div>
 
-        {/* Scrollable Content Area */}
-        <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
-          <div className="max-w-6xl mx-auto ">
+        {/* Scrollable Content Area with bottom padding */}
+        <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent pb-10">
+          <div className="max-w-6xl mx-auto">
             {children}
           </div>
         </main>
 
         {/* Enhanced Bottom Navigation */}
-        <div className="sticky bottom-0 z-50 bg-gray-900/90 backdrop-blur-xl border-t border-gray-700/50 shadow-2xl">
+        <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-xl z-50 bg-gray-900/90 backdrop-blur-xl border-t border-gray-700/50 shadow-2xl">
           <div className="max-w-6xl mx-auto">
             <BottomNav />
           </div>
         </div>
       </div>
-
-   
     </div>
   );
 };
