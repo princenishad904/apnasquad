@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-import { User, Users, RotateCcw } from "lucide-react";
 
 const MatchCategories = ({ onSelectMap, onSelectMode, onResetFilter }) => {
   const [selectedMapId, setSelectedMapId] = useState(null);
@@ -141,7 +140,7 @@ const MatchCategories = ({ onSelectMap, onSelectMode, onResetFilter }) => {
             key={idx}
             onClick={() => handleSelectMode(mode.value)}
             className={`
-                flex items-center justify-center w-full text-center px-6 py-2 rounded-sm text-sm font-semibold 
+                flex items-center justify-center w-full text-center px-4 py-2 rounded-sm text-sm font-semibold 
                 transition-all duration-300
                 ${
                   selectedMode === mode.value

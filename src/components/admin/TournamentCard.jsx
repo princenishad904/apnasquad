@@ -15,26 +15,13 @@ import {
   Copy,
   Lock,
 } from "lucide-react";
-import moment from "moment";
+
 import { toast } from "sonner";
 import Loader from "../Loader";
 import SetRoomDetails from "./SetRoomDetails";
 import Link from "next/link";
-const tourn = {
-  _id: "689a8b1f6ec96ba9abbdbc0e",
-  title: "SQUAD MUKABLA ONLY 50 LEVEL ALLOWED",
-  mode: "squad",
-  entryFee: 100,
-  prizePool: 2400,
-  totalSpots: 25,
-  joinedSpots: 0,
-  matchTime: "2025-08-14T11:30:00.000Z",
-  map: "erangel",
-  createdBy: "6891eed9e174448fb6283c4f",
-  isActive: true,
-  isCompleted: false,
-  status: "live",
-};
+import { formatISODateToLocal } from "@/lib/convertUTCToIST";
+
 
 const TournamentCard = ({ tournament }) => {
   const {
@@ -132,7 +119,7 @@ const TournamentCard = ({ tournament }) => {
         </div>
         <div className="flex items-center gap-2">
           <Clock size={16} className="text-orange-400" />
-          <span>Time: {moment(matchTime).format("MMMM Do, h:mm a")}</span>
+          <span>Time: {formatISODateToLocal(matchTime)}</span>
         </div>
       </div>
 

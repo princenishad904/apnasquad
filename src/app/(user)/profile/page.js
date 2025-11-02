@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import EditProfileDailog from "@/components/user/EditProfileDailog";
@@ -15,7 +15,7 @@ import { useGetLoggedInUserQuery } from "@/redux/user/userApi";
 import ProfileLoader from "@/components/user/ProfileLoader";
 import Link from "next/link";
 import WithdrawDrawer from "@/components/user/WithdrawDrawer";
-import { FileText, DollarSign, Wallet, Book } from "lucide-react";
+import { FileText, DollarSign, Wallet, Book, Crown, Users, Gift, LogOut, Settings, User, CreditCard, Share2 } from "lucide-react";
 
 const Swords = (props) => (
   <svg
@@ -37,16 +37,31 @@ const Swords = (props) => (
   </svg>
 );
 
-const Card = ({ title, subtitle, icon, iconBgColor }) => {
+const Card = ({ title, subtitle, icon, iconBgColor, href }) => {
   return (
-    <div className="flex items-center space-x-4 border border-gray-600 rounded-xl bg-natural-500/20 p-4 shadow-md">
-      <div className={`flex-shrink-0 p-3 rounded-xl ${iconBgColor}`}>
-        {icon}
+    <Link href={href} className="block group">
+      <div className="flex items-center space-x-4 border border-gray-700/50 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 p-4 shadow-lg backdrop-blur-sm transition-all duration-300 group-hover:scale-105 group-hover:border-gray-600 group-hover:shadow-xl group-hover:from-gray-900/70 group-hover:to-gray-800/50">
+        <div className={`flex-shrink-0 p-3 rounded-xl ${iconBgColor} transition-transform duration-300 group-hover:scale-110`}>
+          {icon}
+        </div>
+        <div className="flex-grow">
+          <h3 className="text-sm font-semibold text-white">{title}</h3>
+          <p className="text-xs text-gray-400 group-hover:text-gray-300">{subtitle}</p>
+        </div>
+        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+        </div>
       </div>
-      <div className="flex-grow">
-        <h3 className="text-sm">{title}</h3>
-        <p className="text-xs text-neutral-400">{subtitle}</p>
-      </div>
+    </Link>
+  );
+};
+
+const StatCard = ({ title, value, subtitle, gradient }) => {
+  return (
+    <div className={`p-4 rounded-2xl bg-gradient-to-br ${gradient} shadow-lg backdrop-blur-sm border border-white/10`}>
+      <p className="text-sm text-white/80 mb-1">{title}</p>
+      <p className="text-2xl font-bold text-white mb-1">{value}</p>
+      <p className="text-xs text-white/60">{subtitle}</p>
     </div>
   );
 };
@@ -54,9 +69,9 @@ const Card = ({ title, subtitle, icon, iconBgColor }) => {
 // Main Profile Component
 export default function Profile() {
   const { data: user, isLoading: isUserGetting } = useGetLoggedInUserQuery();
-
   const [logout, { isLoading }] = useLogoutMutation();
   const router = useRouter();
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleLogout = async () => {
     const { data, error } = await logout();
@@ -72,155 +87,210 @@ export default function Profile() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-transparent font-sans text-white relative overflow-hidden px-4 py-1">
+    <div className="w-full min-h-screen bg-transaparent font-sans text-white relative overflow-hidden px-4 py-6">
+      {/* Animated Background Elements */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-pink-500/5 rounded-full blur-2xl animate-pulse delay-500"></div>
+
       <div className="max-w-md mx-auto z-10 relative">
-        {/* Admin Link Button */}
-        {user?.data?.role === "admin" && (
-          <Link href={"/admin"} className="block mb-4">
-            <div className="w-full bg-gradient-to-r from-purple-700 to-blue-700 p-0.5 rounded-xl">
-              <div className="bg-gray-900 rounded-xl p-3 text-center font-bold text-white hover:bg-gray-800 transition-colors cursor-pointer">
-                Admin Dashboard
-              </div>
-            </div>
-          </Link>
-        )}
-        {user?.data?.role === "manager" && (
-          <Link href={"/admin"} className="block mb-4">
-            <div className="w-full bg-gradient-to-r from-purple-700 to-blue-700 p-0.5 rounded-xl">
-              <div className="bg-gray-900 rounded-xl p-3 text-center font-bold text-white hover:bg-gray-800 transition-colors cursor-pointer">
-                Access Dashboard
+        {/* Admin Access Cards */}
+        {(user?.data?.role === "admin" || user?.data?.role === "manager") && (
+          <Link href={"/admin"} className="block mb-6 group">
+            <div className="w-full bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 p-0.5 rounded-2xl shadow-2xl">
+              <div className="bg-gray-900/80 backdrop-blur-sm rounded-2xl p-4 text-center font-bold text-white transition-all duration-300 group-hover:bg-gray-800/90 group-hover:scale-105 cursor-pointer border border-white/10">
+                <div className="flex items-center justify-center gap-2">
+                  <Crown className="w-5 h-5 text-yellow-400" />
+                  {user?.data?.role === "admin" ? "Admin Dashboard" : "Access Dashboard"}
+                  <Crown className="w-5 h-5 text-yellow-400" />
+                </div>
               </div>
             </div>
           </Link>
         )}
 
         {/* Profile Header Card */}
-        <div className="relative rounded-2xl p-4 flex items-center gap-4 mb-2 overflow-hidden">
-          {/* Light effect behind avatar */}
-          <div className="absolute -top-10 -left-10 w-32 h-32  rounded-full blur-xl"></div>
-
-          <div className="relative">
-            <Avatar className="size-20 ring-4 ring-blue-500/30 transition-transform duration-300 hover:scale-105 z-10">
-              <AvatarImage
-                className="object-cover"
-                src={user?.data?.avatar || "https://github.com/shadcn.png"}
-              />
-              <AvatarFallback className="bg-blue-700 text-white">
-                {user?.data?.name?.charAt(0) || "U"}
-              </AvatarFallback>
-            </Avatar>
+        <div className="relative rounded-3xl p-6 mb-6 overflow-hidden border border-white/10 bg-gradient-to-br from-gray-900/60 to-gray-800/40 backdrop-blur-xl shadow-2xl">
+          {/* Animated background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 animate-gradient-x"></div>
+          
+          {/* Floating particles effect */}
+          <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+            {[...Array(5)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 bg-white/20 rounded-full animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${10 + Math.random() * 10}s`
+                }}
+              ></div>
+            ))}
           </div>
 
-          <div className="flex-1">
-            <h2 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
-              {user?.data?.name}
-            </h2>
-            <p className="text-gray-400 text-sm">
-              {user?.data?.email || "Email not set"}
-            </p>
-            {user?.data?.bgmiId && (
-              <p className="text-gray-400 text-sm mt-1">
-                BGMI ID: {user?.data?.bgmiId || "Add your BGMI ID"}
+          <div className="flex items-center gap-4 relative z-10">
+            <div 
+              className="relative group cursor-pointer"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <div className={`absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full transition-all duration-300 ${isHovered ? 'scale-110 blur-md opacity-70' : 'scale-100 blur-sm opacity-50'}`}></div>
+              <Avatar className="size-20 ring-4 ring-white/20 transition-all duration-300 group-hover:scale-110 group-hover:ring-4 group-hover:ring-blue-400/50 z-10 relative">
+                <AvatarImage
+                  className="object-cover"
+                  src={user?.data?.avatar || "https://github.com/shadcn.png"}
+                />
+                <AvatarFallback className="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold">
+                  {user?.data?.name?.charAt(0)?.toUpperCase() || "U"}
+                </AvatarFallback>
+              </Avatar>
+              {isHovered && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full transition-all duration-300">
+                  <User className="w-6 h-6 text-white" />
+                </div>
+              )}
+            </div>
+
+            <div className="flex-1">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent">
+                {user?.data?.name}
+              </h2>
+              <p className="text-gray-300 text-sm mt-1">
+                {user?.data?.email || "Email not set"}
               </p>
-            )}
+              {user?.data?.bgmiId && (
+                <div className="flex items-center gap-2 mt-2">
+                 
+                  <p className="text-gray-400 text-sm">
+                    BGMI ID: {user?.data?.bgmiId}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 my-4">
+        {/* Action Buttons */}
+        <div className="grid grid-cols-2 gap-4 mb-8">
           <CreateTeam user={user?.data} />
           <EditProfileDailog />
         </div>
 
         {/* Wallet Section */}
-        <div className="my-8 relative overflow-hidden">
-          <div className="absolute  -right-10 w-28 h-28 rounded-full blur-2xl"></div>
-
-          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Wallet className="w-5 h-5 text-blue-400" />
-            Wallet Balance
-          </h3>
-
-          <div className="flex justify-between items-center mb-4">
-            <div>
-              <p className="text-2xl font-bold text-blue-300">
-                ₹{user?.data?.balance.toLocaleString()}
-              </p>
-              <p className="text-sm text-gray-400">Main Balance</p>
+        <div className="relative rounded-3xl p-6 mb-6 overflow-hidden border border-white/10 bg-gradient-to-br from-gray-900/60 to-gray-800/40 backdrop-blur-xl shadow-2xl">
+          <div className="absolute -top-20 -right-20 w-40 h-40 bg-blue-500/20 rounded-full blur-2xl animate-pulse"></div>
+          
+          <div className="flex items-center gap-3 mb-6 relative z-10">
+            <div className="p-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl">
+              <Wallet className="w-6 h-6 text-white" />
             </div>
-
-            <div className="text-right">
-              <p className="text-xl font-bold text-purple-300">
-                ₹{user?.data?.bonus.toLocaleString()}
-              </p>
-              <p className="text-sm text-gray-400">Bonus</p>
-            </div>
+            <h3 className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              Wallet Balance
+            </h3>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4 mb-6 relative z-10">
+            <StatCard
+              title="Main Balance"
+              value={`₹${user?.data?.balance?.toLocaleString() || '0'}`}
+              subtitle="Available"
+              gradient="from-blue-500/20 to-blue-600/20"
+            />
+            <StatCard
+              title="Bonus"
+              value={`₹${user?.data?.bonus?.toLocaleString() || '0'}`}
+              subtitle="Rewards"
+              gradient="from-purple-500/20 to-pink-500/20"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 relative z-10">
             <WithdrawDrawer user={user?.data} />
             <Link href={"/add-balance"}>
-              <div className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white text-center py-2 text-sm px-4 rounded-lg transition-all cursor-pointer">
+              <div className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 text-white text-center py-3 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer flex items-center justify-center gap-2">
+                <CreditCard className="w-4 h-4" />
                 Add Cash
               </div>
             </Link>
           </div>
         </div>
 
-        <div className=" text-white my-4 ">
-          <div className="grid grid-cols-2 gap-2  w-full">
-            {/* Card for Game History */}
-            <Link href={"/transactions?type=game"}>
-              <Card
-                title="Game"
-                subtitle="Game history"
-                icon={<FileText color="#5A88FF" size={20} />}
-                iconBgColor="bg-blue-600/20"
-              />
-            </Link>
-
-            <Link href={"/transactions?type="}>
-              <Card
-                title="Transaction"
-                subtitle="Transaction history"
-                icon={<FileText color="#22B18E" size={20} />}
-                iconBgColor="bg-teal-600/20"
-              />
-            </Link>
-
-            <Link href={"/transactions?type=deposit"}>
-              {/* Card for Deposit */}
-              <Card
-                title="Deposit"
-                subtitle="Deposit history"
-                icon={<Book color="#E34E57" size={20} />}
-                iconBgColor="bg-red-600/20"
-              />
-            </Link>
-
-            <Link href={"/transactions?type=withdraw"}>
-              {/* Card for Withdraw */}
-              <Card
-                title="Withdraw"
-                subtitle="Withdraw history"
-                icon={<Wallet color="#EAA64F" size={20} />}
-                iconBgColor="bg-orange-600/20"
-              />
-            </Link>
+        {/* Quick Actions Grid */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-4">
+            <Settings className="w-5 h-5 text-gray-400" />
+            <h3 className="text-lg font-semibold text-white">Quick Actions</h3>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-3">
+            <Card
+              title="Game History"
+              subtitle="Game records"
+              icon={<Swords className="w-5 h-5" />}
+              iconBgColor="bg-orange-500/20 text-orange-400"
+              href="/transactions?type=game"
+            />
+            <Card
+              title="Transactions"
+              subtitle="All transactions"
+              icon={<FileText className="w-5 h-5" />}
+              iconBgColor="bg-green-500/20 text-green-400"
+              href="/transactions?type="
+            />
+            <Card
+              title="Deposits"
+              subtitle="Deposit history"
+              icon={<Book className="w-5 h-5" />}
+              iconBgColor="bg-red-500/20 text-red-400"
+              href="/transactions?type=deposit"
+            />
+            <Card
+              title="Withdrawals"
+              subtitle="Withdrawal history"
+              icon={<Wallet className="w-5 h-5" />}
+              iconBgColor="bg-yellow-500/20 text-yellow-400"
+              href="/transactions?type=withdraw"
+            />
           </div>
         </div>
+
         {/* Referral Section */}
-        <div className=" p-5 mb-6 relative overflow-hidden">
-          <div className="absolute -bottom-10 -left-10 w-28 h-28  rounded-full blur-2xl"></div>
+        <div className="relative rounded-3xl p-6 mb-6 overflow-hidden border border-white/10 bg-gradient-to-br from-gray-900/60 to-gray-800/40 backdrop-blur-xl shadow-2xl">
+          <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-500/20 rounded-full blur-2xl animate-pulse"></div>
+          
+          <div className="flex items-center gap-3 mb-4 relative z-10">
+            <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl">
+              <Gift className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              Invite Friends
+            </h3>
+          </div>
 
-          <h3 className="text-lg font-semibold mb-3">Referral Code</h3>
-
-          <div className="bg-gray-800/50 p-3 rounded-lg mb-4 flex justify-between items-center">
-            <p className="text-lg font-mono">{user?.data?.referralCode}</p>
+          <div className="bg-gray-800/30 border border-white/10 rounded-2xl p-4 mb-4 backdrop-blur-sm relative z-10">
+            <p className="text-sm text-gray-400 mb-2">Your Referral Code</p>
+            <div className="flex items-center justify-between">
+              <p className="text-lg font-mono font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
+                {user?.data?.referralCode}
+              </p>
+              <button 
+                onClick={() => {
+                  navigator.clipboard.writeText(user?.data?.referralCode);
+                  toast.success('Referral code copied!');
+                }}
+                className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-300"
+              >
+                <Share2 className="w-4 h-4 text-gray-300" />
+              </button>
+            </div>
           </div>
 
           <Link href={`/invite?referralCode=${user?.data?.referralCode}`}>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white py-2.5 rounded-lg transition-all">
-              Invite Friends
+            <button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-semibold py-3.5 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 relative z-10">
+              <Users className="w-5 h-5" />
+              Invite & Earn Rewards
             </button>
           </Link>
         </div>
@@ -228,11 +298,37 @@ export default function Profile() {
         {/* Logout Button */}
         <button
           onClick={handleLogout}
-          className="w-full bg-gradient-to-r from-red-700 to-red-800 hover:from-red-600 hover:to-red-700 text-white font-medium py-3 px-8 rounded-xl transition-all"
+          disabled={isLoading}
+          className="w-full bg-gradient-to-r from-red-500/20 to-red-600/20 hover:from-red-500/30 hover:to-red-600/30 text-white font-semibold py-3.5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 border border-red-500/30 hover:border-red-400/50 shadow-lg backdrop-blur-sm flex items-center justify-center gap-2"
         >
-          {isLoading ? <Loader /> : "Logout"}
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <>
+              <LogOut className="w-5 h-5" />
+              Logout
+            </>
+          )}
         </button>
       </div>
+
+      <style jsx>{`
+        @keyframes gradient-x {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        .animate-gradient-x {
+          background-size: 200% 200%;
+          animation: gradient-x 3s ease infinite;
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 }

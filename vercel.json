@@ -1,7 +1,11 @@
+
 {
   "redirects": [
     {
-      "source": "https://www.apnasquad.site/(.*)",
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "www.apnasquad.site" }
+      ],
       "destination": "https://apnasquad.site/$1",
       "permanent": true
     }

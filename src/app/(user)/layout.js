@@ -6,30 +6,56 @@ import BottomNav from "@/components/user/BottomNav";
 
 const Layout = ({ children }) => {
   return (
-    <div className="relative text-white max-w-xl mx-auto h-screen bg-gray-900">
-      {/* Aurora background effect */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-        <div className="absolute w-[500px] h-[500px] bg-cyan-500/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl animate-pulse-slow"></div>
-        <div className="absolute w-[400px] h-[400px] bg-blue-700/20 rounded-full right-0 bottom-0 translate-x-1/2 translate-y-1/2 blur-3xl animate-pulse-slow animation-delay-2000"></div>
+    <div className="relative text-white max-w-xl mx-auto h-screen bg-gray-900 overflow-hidden">
+      {/* Enhanced Aurora Background */}
+      <div className="absolute inset-0 overflow-hidden z-0">
+        {/* Main Aurora Elements */}
+        <div className="absolute w-[600px] h-[600px] bg-gradient-to-r from-cyan-500/15 to-blue-600/10 rounded-full -top-1/4 -left-1/4 blur-[100px] animate-pulse"></div>
+        <div className="absolute w-[550px] h-[550px] bg-gradient-to-l from-purple-500/10 to-pink-600/15 rounded-full -bottom-1/4 -right-1/4 blur-[120px] animate-pulse animation-delay-2000"></div>
+        
+        {/* Subtle Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/0 via-gray-900/80 to-gray-900"></div>
+        
+        {/* Animated Grid Pattern */}
+        <div className="absolute inset-0 opacity-[0.15]">
+          <div 
+            className="w-full h-full"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: '50px 50px',
+            }}
+          />
+        </div>
       </div>
 
-      {/* Content layout */}
+      {/* Content Layout */}
       <div className="relative z-10 flex flex-col h-screen">
-        {/* Fixed Header */}
-        <div className="sticky top-0 z-20 bg-gray-900">
-          <Header />
+        {/* Enhanced Header with Glass Effect */}
+        <div className="sticky top-0 z-20 bg-gray-900/80 backdrop-blur-xl border-b border-gray-700/50 shadow-lg">
+          <div className="max-w-6xl mx-auto">
+            <Header />
+          </div>
         </div>
 
-        {/* Scrollable Content */}
-        <main className="flex-1 overflow-y-auto pb-20">
-          <div className="max-w-6xl mx-auto">{children}</div>
+        {/* Scrollable Content Area */}
+        <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent pb-20">
+          <div className="max-w-6xl mx-auto ">
+            {children}
+          </div>
         </main>
 
-        {/* Fixed BottomNav */}
-        <div className="sticky bottom-0 z-20 bg-gray-900">
-          <BottomNav />
+        {/* Enhanced Bottom Navigation */}
+        <div className="sticky bottom-0 z-20 bg-gray-900/90 backdrop-blur-xl border-t border-gray-700/50 shadow-2xl">
+          <div className="max-w-6xl mx-auto">
+            <BottomNav />
+          </div>
         </div>
       </div>
+
+   
     </div>
   );
 };
