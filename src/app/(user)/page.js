@@ -129,7 +129,7 @@ const Page = () => {
   );
 
   return (
-    <div className="min-h-screen bg-transaparent">
+    <div className=" bg-transaparent">
      
 
       {/* Main Content */}
