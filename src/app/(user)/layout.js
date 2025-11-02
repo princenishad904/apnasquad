@@ -41,14 +41,14 @@ const Layout = ({ children }) => {
         </div>
 
         {/* Scrollable Content Area */}
-        <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent pb-20">
+        <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
           <div className="max-w-6xl mx-auto ">
             {children}
           </div>
         </main>
 
         {/* Enhanced Bottom Navigation */}
-        <div className="sticky bottom-0 z-20 bg-gray-900/90 backdrop-blur-xl border-t border-gray-700/50 shadow-2xl">
+        <div className="sticky bottom-0 z-50 bg-gray-900/90 backdrop-blur-xl border-t border-gray-700/50 shadow-2xl">
           <div className="max-w-6xl mx-auto">
             <BottomNav />
           </div>

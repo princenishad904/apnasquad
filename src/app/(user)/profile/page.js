@@ -40,13 +40,13 @@ const Swords = (props) => (
 const Card = ({ title, subtitle, icon, iconBgColor, href }) => {
   return (
     <Link href={href} className="block group">
-      <div className="flex items-center space-x-4 border border-gray-700/50 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 p-4 shadow-lg backdrop-blur-sm transition-all duration-300 group-hover:scale-105 group-hover:border-gray-600 group-hover:shadow-xl group-hover:from-gray-900/70 group-hover:to-gray-800/50">
+      <div className="flex flex-col justify-center items-center py-2 border border-gray-700/50 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/30  shadow-lg backdrop-blur-sm transition-all duration-300 group-hover:scale-105 group-hover:border-gray-600 group-hover:shadow-xl group-hover:from-gray-900/70 group-hover:to-gray-800/50">
         <div className={`flex-shrink-0 p-3 rounded-xl ${iconBgColor} transition-transform duration-300 group-hover:scale-110`}>
           {icon}
         </div>
         <div className="flex-grow">
-          <h3 className="text-sm font-semibold text-white">{title}</h3>
-          <p className="text-xs text-gray-400 group-hover:text-gray-300">{subtitle}</p>
+          <h3 className="text-sm font-semibold text-white text-center">{title}</h3>
+          <p className="text-xs text-gray-400 group-hover:text-gray-300 text-center">{subtitle}</p>
         </div>
         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
@@ -191,7 +191,7 @@ export default function Profile() {
             </h3>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-6 relative z-10">
+          <div className="flex flex-col gap-4 mb-6 relative z-10">
             <StatCard
               title="Main Balance"
               value={`₹${user?.data?.balance?.toLocaleString() || '0'}`}
@@ -206,10 +206,10 @@ export default function Profile() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3 relative z-10">
+          <div className="flex items-center flex-wrap gap-4 justify-between relative z-10">
             <WithdrawDrawer user={user?.data} />
             <Link href={"/add-balance"}>
-              <div className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 text-white text-center py-3 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer flex items-center justify-center gap-2">
+              <div className="bg-gradient-to-r px-4 from-pink-500 to-pink-500 hover:from-pink-400 hover:to-pink-400 text-white text-center py-3 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer flex items-center justify-center gap-2">
                 <CreditCard className="w-4 h-4" />
                 Add Cash
               </div>
@@ -299,7 +299,7 @@ export default function Profile() {
         <button
           onClick={handleLogout}
           disabled={isLoading}
-          className="w-full bg-gradient-to-r from-red-500/20 to-red-600/20 hover:from-red-500/30 hover:to-red-600/30 text-white font-semibold py-3.5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 border border-red-500/30 hover:border-red-400/50 shadow-lg backdrop-blur-sm flex items-center justify-center gap-2"
+          className="w-full bg-gradient-to-r from-red-500/20 to-red-600/20 hover:from-red-500/30 hover:to-red-600/30 text-white font-semibold py-3.5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 border border-red-500/30 hover:border-red-400/50 shadow-lg backdrop-blur-sm flex items-center justify-center gap-2 mb-14"
         >
           {isLoading ? (
             <Loader />

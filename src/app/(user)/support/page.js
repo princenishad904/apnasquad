@@ -28,7 +28,7 @@ const GamingControllerIcon = () => (
 
 const page = () => {
   return (
-    <div className="bg-[#12121215] min-h-screen text-gray-100 flex items-center justify-center  font-inter">
+    <div className="bg-[#12121215] min-h-screen text-gray-100 flex items-center justify-center  font-inter pb-12">
       <div className="w-full max-w-2xl bg-[#1c1c1c]  p-4 shadow-2xl border border-gray-700 transform transition-all duration-300 hover:scale-[1.01]">
         <div className="flex items-center justify-center space-x-4 mb-8">
           <GamingControllerIcon className="w-12 h-12 text-[#ff4d4d] animate-pulse" />

@@ -35,7 +35,7 @@ const WithdrawDrawer = ({ user }) => {
       <Drawer>
         <DrawerTrigger
           className={
-            "bg-gray-200 text-black px-4 py-1 rounded-md border border-gray-500 cursor-pointer"
+            "bg-gradient-to-r from-blue-500 to-blue-500 hover:from-blue-400 hover:to-blue-400 text-white text-center py-3 px-4 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer flex items-center justify-center gap-2"
           }
         >
           Withdraw
