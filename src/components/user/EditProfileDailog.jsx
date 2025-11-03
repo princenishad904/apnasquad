@@ -79,7 +79,7 @@ export default function EditProfileDialog({ button }) {
       }
 
       let { data: res, error } = await updateProfile(formData);
-      console.log(res?.data);
+   
 
       if (res?.success) {
         setIsOpen(false);

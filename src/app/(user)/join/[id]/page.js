@@ -342,7 +342,7 @@ const TournamentJoin = () => {
           {tournament?.prizeDistribution?.map((e, idx) => (
             <div
               key={idx}
-              className="flex items-center justify-between border-b border-gray-700 p-2"
+              className="flex items-center justify-between border-b border-gray-700 p-2 pb-8"
             >
               <span className="text-gray-400 font-semibold">
                 Rank #{e.rank}
