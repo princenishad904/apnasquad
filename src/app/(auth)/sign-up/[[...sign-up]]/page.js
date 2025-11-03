@@ -26,11 +26,11 @@ import { useRouter } from "next/navigation";
 
 const SignUp = () => {
   // State to manage which step of the sign-up process is active
-  const [steps, setSteps] = useState(1); // 1 for sign up, 2 for otp verification
-  const [otp, setOtp] = useState("");
+  // const [steps, setSteps] = useState(1); // 1 for sign up, 2 for otp verification
+  // const [otp, setOtp] = useState("");
   const [email, setEmail] = useState("");
   const [signUp, { isLoading }] = useSignUpMutation();
-  const [verifyOtp, { isLoading: isVerifing }] = useVerifyOtpMutation();
+  // const [verifyOtp, { isLoading: isVerifing }] = useVerifyOtpMutation();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -47,22 +47,12 @@ const SignUp = () => {
     if (data?.success) {
       setEmail(data?.data?.email);
       toast.success(data?.message);
-      setSteps(2);
+
+      router.push("/login")
+ 
     }
   };
 
-  // Handle the OTP verification form submission
-  const handleVerification = async (e) => {
-    e.preventDefault();
-    const { data, error } = await verifyOtp({ email, otp });
-
-    if (error) return toast.error(error?.data?.message);
-
-    if (data?.success) {
-      toast.success(data?.message);
-      router.push("/login");
-    }
-  };
 
   return (
     // Main container with dark background and aurora effect
@@ -71,8 +61,7 @@ const SignUp = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-[#2d025b] via-transparent to-[#04b218] opacity-30 animate-pulse-slow"></div>
 
       {/* Conditional rendering for different steps */}
-      {steps === 1 ? (
-        // Sign-up form card
+    
         <Card className="z-10 w-full max-w-sm mx-auto p-6 bg-white/5 border-none backdrop-blur-sm rounded-3xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:shadow-[0_4px_50px_rgba(0,0,0,0.2)]">
           <CardHeader className="text-center p-0 ">
             <CardTitle className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">
@@ -181,62 +170,7 @@ const SignUp = () => {
             </p>
           </CardFooter>
         </Card>
-      ) : steps === 2 ? (
-        // OTP verification form card
-        <Card className="z-10 w-full max-w-sm mx-auto p-6 bg-transparent border-none backdrop-blur-sm rounded-3xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:shadow-[0_4px_50px_rgba(0,0,0,0.2)]">
-          <CardHeader className="text-center p-0 mb-8">
-            <CardTitle className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">
-              VERIFY OTP
-            </CardTitle>
-            <CardDescription className="text-sm text-gray-400 mt-2">
-              We have sent a 6-digit code to your {email}.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center p-0">
-            <InputOTP
-              maxLength={4}
-              onChange={(value) => setOtp(value)}
-              value={otp}
-            >
-              <InputOTPSlot
-                index={0}
-                className="rounded-lg bg-white/10 text-white border-white/20 size-12 text-2xl"
-              />
-              <InputOTPSlot
-                index={1}
-                className="rounded-lg bg-white/10 text-white border-white/20 size-12 text-2xl"
-              />
-              <InputOTPSlot
-                index={2}
-                className="rounded-lg bg-white/10 text-white border-white/20 size-12 text-2xl"
-              />
-
-              <InputOTPSlot
-                index={3}
-                className="rounded-lg bg-white/10 text-white border-white/20 size-12 text-2xl"
-              />
-            </InputOTP>
-          </CardContent>
-          <CardFooter className="flex-col gap-2 mt-4 p-0">
-            <Button
-              type="submit"
-              onClick={handleVerification}
-              disabled={otp.length !== 4 || isVerifing}
-              className="w-full mt-4 h-11 text-lg font-bold rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
-            >
-              {isVerifing ? (
-                <div className="flex items-center gap-2">
-                  <span className="text-sm">Verifying...</span> <Loader />
-                </div>
-              ) : (
-                "Verify OTP"
-              )}
-            </Button>
-          </CardFooter>
-        </Card>
-      ) : (
-        ""
-      )}
+     
     </div>
   );
 };
